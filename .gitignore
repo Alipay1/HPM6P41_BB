@@ -29,6 +29,7 @@ fp-info-cache
 # Exported BOM files
 *.xml
 *.csv
+\bom
 ibom.html
 
 #footprint
