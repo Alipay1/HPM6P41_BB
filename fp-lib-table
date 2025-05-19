@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "HPM6P41_BB")(type "KiCad")(uri "${KIPRJMOD}/HPM6P41_BB.pretty")(options "")(descr ""))
+)
