@@ -4693,7 +4693,7 @@
 				)
 			)
 		)
-		(property "Value" "1N4148W"
+		(property "Value" "1N4148WS"
 			(at 268.986 127 0)
 			(effects
 				(font
@@ -4988,7 +4988,7 @@
 				)
 			)
 		)
-		(property "Value" "1N4148W"
+		(property "Value" "1N4148WS"
 			(at 185.42 124.46 0)
 			(effects
 				(font
@@ -5700,7 +5700,7 @@
 				)
 			)
 		)
-		(property "Value" "1N4148W"
+		(property "Value" "1N4148WS"
 			(at 185.42 116.84 0)
 			(effects
 				(font
@@ -7293,7 +7293,7 @@
 				)
 			)
 		)
-		(property "Value" "1N4148W"
+		(property "Value" "1N4148WS"
 			(at 256.032 127 0)
 			(effects
 				(font
@@ -7791,7 +7791,7 @@
 				)
 			)
 		)
-		(property "Value" "1N4148W"
+		(property "Value" "1N4148WS"
 			(at 240.792 104.14 0)
 			(effects
 				(font
@@ -8758,7 +8758,7 @@
 				)
 			)
 		)
-		(property "Value" "1N4148W"
+		(property "Value" "1N4148WS"
 			(at 253.746 104.14 0)
 			(effects
 				(font
@@ -10042,7 +10042,7 @@
 				)
 			)
 		)
-		(property "Value" "1N4148W"
+		(property "Value" "1N4148WS"
 			(at 93.98 124.46 0)
 			(effects
 				(font
@@ -10532,7 +10532,7 @@
 				)
 			)
 		)
-		(property "Value" "1N4148W"
+		(property "Value" "1N4148WS"
 			(at 93.98 116.84 0)
 			(effects
 				(font
