@@ -14951,7 +14951,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R57"
-			(at 0 -1.43 90)
+			(at 0 -2.08 90)
 			(layer "F.SilkS")
 			(uuid "efd2ea9d-a3e8-4e75-9340-6ad370b429b3")
 			(effects
@@ -23556,7 +23556,7 @@
 		(locked yes)
 		(layer "F.Cu")
 		(uuid "5e060010-921e-4dfb-a142-84027a992a12")
-		(at 204.774498 69.139757)
+		(at 210.824498 69.239757)
 		(property "Reference" "G***"
 			(at 0 0 0)
 			(layer "F.SilkS")
@@ -33472,7 +33472,7 @@
 		(locked yes)
 		(layer "F.Cu")
 		(uuid "87394133-226c-4542-91f7-03be653aee5a")
-		(at 195.524498 68.929146)
+		(at 201.574498 69.029146)
 		(descr "Electrostatic discharge Logo")
 		(tags "Logo ESD")
 		(property "Reference" "REF**"
@@ -38011,7 +38011,7 @@
 		(descr "TSOT, 5 Pin (https://www.jedec.org/sites/default/files/docs/MO-193D.pdf variant AB), generated with kicad-footprint-generator ipc_gullwing_generator.py")
 		(tags "TSOT TO_SOT_SMD")
 		(property "Reference" "U20"
-			(at 0 -2.4 90)
+			(at 0 3.6125 90)
 			(layer "F.SilkS")
 			(uuid "2da7ac55-b1bc-404e-bae7-0fceda75498b")
 			(effects
@@ -66054,13 +66054,13 @@
 		(descr "USON-10 2.5x1.0mm_ Pitch 0.5mm http://www.ti.com/lit/ds/symlink/tpd4e02b04.pdf")
 		(tags "USON-10 2.5x1.0mm Pitch 0.5mm")
 		(property "Reference" "U23"
-			(at 0.01829 -2.5 90)
+			(at 0.01829 -2.35 180)
 			(layer "F.SilkS")
 			(uuid "d950fa76-8d44-4737-95fe-fe575febea8e")
 			(effects
 				(font
-					(size 1 1)
-					(thickness 0.15)
+					(size 0.7 0.6)
+					(thickness 0.1)
 				)
 			)
 		)
