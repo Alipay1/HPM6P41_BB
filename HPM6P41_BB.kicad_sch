@@ -703,6 +703,16 @@
 	)
 	(wire
 		(pts
+			(xy 270.51 124.46) (xy 276.86 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2e5377b2-2db6-451c-9491-13cc257e053a")
+	)
+	(wire
+		(pts
 			(xy 201.93 66.04) (xy 196.85 66.04)
 		)
 		(stroke
@@ -5040,6 +5050,16 @@
 		)
 		(uuid "8a975d50-612d-479c-a609-0f711b423977")
 	)
+	(label "PY3"
+		(at 276.86 124.46 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8e5cda72-77e7-4cf0-a6f0-76780aca0e1b")
+	)
 	(label "J_TDI"
 		(at 233.68 78.74 180)
 		(effects
@@ -6850,6 +6870,16 @@
 		(pin "LED3" input
 			(at 270.51 121.92 0)
 			(uuid "3e7dd114-1b43-453f-bd06-5a8495bb3d11")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "BEEP" input
+			(at 270.51 124.46 0)
+			(uuid "40a82d49-c01c-4beb-82f6-ec483534d191")
 			(effects
 				(font
 					(size 1.27 1.27)
