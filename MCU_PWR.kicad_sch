@@ -3140,16 +3140,6 @@
 		)
 		(uuid "55a1fd1f-894b-40f1-82ce-4b7911f3c35a")
 	)
-	(text "在主页以0Ω接地"
-		(exclude_from_sim no)
-		(at 114.046 68.834 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "9f4d7860-b80e-4b6a-84c0-9352f3b7e727")
-	)
 	(junction
 		(at 185.42 59.69)
 		(diameter 0)
@@ -5631,6 +5621,72 @@
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/dfb16f69-5c04-494c-819f-f5ce473aeb21"
 					(reference "C36")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 120.65 62.23 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "694f68e7-16f4-4401-b504-21803f4493ec")
+		(property "Reference" "#PWR0175"
+			(at 124.46 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VDD_SOC"
+			(at 116.84 62.23 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 120.65 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 120.65 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 120.65 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "335bb2ba-7525-40f4-b9b2-afd036595671")
+		)
+		(instances
+			(project "HPM6P41_BB"
+				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/dfb16f69-5c04-494c-819f-f5ce473aeb21"
+					(reference "#PWR0175")
 					(unit 1)
 				)
 			)
