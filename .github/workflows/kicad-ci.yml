@@ -1,0 +1,29 @@
+name: KiCad QA & Exports
+
+on:
+  pull_request:
+    paths:
+      - '**/*.sch'
+      - '**/*.kicad_pcb'
+  workflow_dispatch:
+
+jobs:
+  check-and-export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: KiCad CI  
+        uses: sparkengineering/kicad-action@v4
+        with:
+          # PCB 文件路径
+          kicad_pcb: 'HPM6P41_BB.kicad_pro'
+          # 开启 Gerber 导出
+          pcb_gerbers: true
+          pcb_gerbers_file: 'gerbers.zip'
+          # 开启层图渲染
+          pcb_image: true
+          pcb_image_path: 'images'
+          # 可选：STEP 模型
+          pcb_model: true
+          pcb_model_file: 'board.step'
