@@ -41,3 +41,18 @@ jobs:
           # （可选）导出 STEP 模型
           # pcb_model: true
           # pcb_model_file: pcb.step
+
+                # 上传 Gerber ZIP 作为 Artifact
+                
+      - name: 上传 Gerber Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: gerber-files
+          path: gbr.zip
+
+      # 上传 3D 渲染图（images 目录下所有内容）
+      - name: 上传 3D 渲染图 Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pcb-images
+          path: images/
