@@ -1,6 +1,6 @@
 name: KiCad Jobset Automation
 
-on:
+on: 
   workflow_dispatch:
   push:
     paths:
@@ -24,34 +24,19 @@ jobs:
 
     - name: Run KiCad CLI Jobset
       run: |
-        mkdir -p output
-        # 运行所有 .kicad_pro 并将它们的输出放到 output/ 目录
-        find . -name "*.kicad_pro" -print0 \
-          | xargs -0 -I{} sh -c 'kicad-cli jobset run -f ./actions.kicad_jobset "{}"' \
-          && mv ./*_jobset_output output/ 2>/dev/null || true
-
-    - name: Show output directory for debugging
-      run: |
-        echo "=== output 目录结构 ==="
-        ls -R output
+        mkdir output
+        find . -name "*.kicad_pro" -exec \
+          kicad-cli jobset run -f ./actions.kicad_jobset {} \;
 
     - name: Compress Output Folders
       run: |
         cd output
-        # 遍历所有子目录并打包成同名 zip
-        for dir in */; do
-          [ -d "$dir" ] && zip -qr "${dir%/}.zip" "$dir"
+        find * -maxdepth 0 -type d | while read dir; do
+          zip -qr "${dir}.zip" "$dir"
         done
-
-
-    - name: List generated zip files
-      run: |
-        echo "=== zip 文件列表 ==="
-        ls -l output/*.zip
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: kicad-zips
-        # 上传 output 目录下所有 .zip
         path: output/*.zip
