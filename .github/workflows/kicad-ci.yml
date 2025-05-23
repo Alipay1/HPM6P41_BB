@@ -1,29 +1,42 @@
-name: KiCad QA & Exports
+# .github/workflows/kicad-ci.yml
+name: KiCad CI
 
 on:
+  push:
+    paths:
+      - '**.kicad_pcb'
+      - '**.kicad_sch'
   pull_request:
     paths:
-      - '**/**/*.sch'
-      - '**/**/*.kicad_pcb'
-  workflow_dispatch:
+      - '**.kicad_pcb'
+      - '**.kicad_sch'
 
 jobs:
-  check-and-export:
+  kicad:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout 仓库
+        uses: actions/checkout@v4
 
-      - name: KiCad CI  
+      - name: 生成 Gerber 与 3D 渲染图
         uses: sparkengineering/kicad-action@v4
         with:
-          # PCB 文件路径
-          kicad_pcb: 'HPM6P41_BB.kicad_pro'
-          # 开启 Gerber 导出
+          # 如果你有原理图文件，也可以指定；没有的话可删掉这一行
+          kicad_sch: ./HPM6P41_BB.kicad_sch
+
+          # 指向根目录下的 PCB 文件
+          kicad_pcb: ./HPM6P41_BB.kicad_pcb
+
+          # 导出 Gerber（输出 gbr.zip）
           pcb_gerbers: true
-          pcb_gerbers_file: 'gerbers.zip'
-          # 开启层图渲染
+
+          # 生成 3D 渲染图（输出 top.png / bottom.png 到 images/ 目录）
           pcb_image: true
-          pcb_image_path: 'images'
-          # 可选：STEP 模型
-          pcb_model: true
-          pcb_model_file: 'board.step'
+          pcb_image_path: images
+
+          # （可选）自定义 Gerber 输出名称
+          # pcb_gerbers_file: custom-gerbers.zip
+
+          # （可选）导出 STEP 模型
+          # pcb_model: true
+          # pcb_model_file: pcb.step
