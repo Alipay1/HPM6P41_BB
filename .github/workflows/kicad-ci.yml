@@ -3,8 +3,8 @@ name: KiCad QA & Exports
 on:
   pull_request:
     paths:
-      - '**/*.sch'
-      - '**/*.kicad_pcb'
+      - '**/**/*.sch'
+      - '**/**/*.kicad_pcb'
   workflow_dispatch:
 
 jobs:
