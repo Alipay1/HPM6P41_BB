@@ -2,6 +2,7 @@
 name: KiCad CI
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - '**.kicad_pcb'
