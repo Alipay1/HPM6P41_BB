@@ -1,58 +1,42 @@
-# .github/workflows/kicad-ci.yml
-name: KiCad CI
+name: KiCad Jobset Automation
 
-on:
+on: 
   workflow_dispatch:
   push:
     paths:
-      - '**.kicad_pcb'
-      - '**.kicad_sch'
-  pull_request:
-    paths:
-      - '**.kicad_pcb'
-      - '**.kicad_sch'
+      - '**/*.kicad_pro'
+      - '**/*.kicad_pcb'
+      - '**/*.kicad_sch'
 
 jobs:
-  kicad:
+  run-kicad-jobset:
+    name: Run KiCad Jobset
     runs-on: ubuntu-latest
+    container:
+      image: kicad/kicad:9.0
+      options: --user root
+
     steps:
-      - name: Checkout 仓库
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-      - name: 生成 Gerber 与 3D 渲染图
-        uses: sparkengineering/kicad-action@v4
-        with:
-          # 如果你有原理图文件，也可以指定；没有的话可删掉这一行
-          kicad_sch: ./HPM6P41_BB.kicad_sch
+    - name: Run KiCad CLI Jobset
+      run: |
+        mkdir output
+        find . -name "*.kicad_pro" -exec \
+          kicad-cli jobset run -f ./actions.kicad_jobset {} \;
 
-          # 指向根目录下的 PCB 文件
-          kicad_pcb: ./HPM6P41_BB.kicad_pcb
+    - name: Compress Output Folders
+      run: |
+        cd output
+        find * -maxdepth 0 -type d | while read dir; do
+          zip -qr "${dir}.zip" "$dir"
+        done
 
-          # 导出 Gerber（输出 gbr.zip）
-          pcb_gerbers: true
-
-          # 生成 3D 渲染图（输出 top.png / bottom.png 到 images/ 目录）
-          pcb_image: true
-          pcb_image_path: images
-
-          # （可选）自定义 Gerber 输出名称
-          # pcb_gerbers_file: custom-gerbers.zip
-
-          # （可选）导出 STEP 模型
-          # pcb_model: true
-          # pcb_model_file: pcb.step
-
-                # 上传 Gerber ZIP 作为 Artifact
-                
-      - name: 上传 Gerber Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: gerber-files
-          path: gbr.zip
-
-      # 上传 3D 渲染图（images 目录下所有内容）
-      - name: 上传 3D 渲染图 Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: pcb-images
-          path: images/
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: kicad-zips
+        path: output/*.zip
