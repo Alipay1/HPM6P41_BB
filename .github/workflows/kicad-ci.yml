@@ -21,11 +21,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install KiCad & pcbnew Python
+      - name: Install KiCad & dependencies
         run: |
           sudo add-apt-repository --yes ppa:kicad/kicad-7.0-releases
           sudo apt update
-          sudo apt install -y kicad pcbnew-python3 zip
+          sudo apt install -y kicad python3-pcbnew zip gh
+
 
       - name: Prepare output dirs
         run: mkdir -p output/gerber output/3d
