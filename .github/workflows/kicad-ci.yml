@@ -54,3 +54,62 @@ jobs:
           cd output
           zip -r "../${ZIP_NAME}" gerber 3d
           echo "✅ Artifact generated: ${ZIP_NAME}"
+
+  release:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies (KiCad, zip, gh CLI)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y kicad pcbnew-python3 zip
+          # 安装 GitHub CLI
+          type -p gh >/dev/null || sudo apt-get install -y gh
+
+      - name: Prepare output dirs
+        run: mkdir -p output/gerber output/3d
+
+      - name: Export Gerber & Drill
+        run: |
+          pcbnew --action=plot --plot-format=Gerber --output-dir=output/gerber project.kicad_pcb
+          pcbnew --action=drill --output-dir=output/gerber project.kicad_pcb
+
+      - name: Render 3D preview PNG
+        run: |
+          python3 - << 'EOF'
+          import pcbnew
+          board = pcbnew.LoadBoard("project.kicad_pcb")
+          settings = pcbnew.PCB_3D_VIEWER_SETTINGS().GetSettings()
+          settings.View3dFilename = "output/3d/preview.png"
+          settings.Width = 1920
+          settings.Height = 1080
+          pcbnew.PCB_3D(settings)
+          EOF
+
+      - name: Zip all outputs
+        run: |
+          SHORT_SHA=${GITHUB_SHA:0:8}
+          ZIP_NAME="kicad-output-${GITHUB_RUN_NUMBER}-${SHORT_SHA}.zip"
+          cd output
+          zip -r "../${ZIP_NAME}" gerber 3d
+
+      - name: Create or update GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 自动创建（若已存在则失败），然后上传资产
+          gh release create "${{ github.event.inputs.release_tag }}" \
+            ../${ZIP_NAME} \
+            output/gerber/*.gbr \
+            output/gerber/*.drl \
+            output/3d/preview.png \
+            --title "KiCad Release ${{ github.event.inputs.release_tag }}" \
+            --notes "自动生成的 Gerber、Drill、3D 预览图和打包 ZIP。"
+
+      - name: Done
+        run: echo "✅ Release ${{ github.event.inputs.release_tag }} created."
