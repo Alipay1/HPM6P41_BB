@@ -1,10 +1,8 @@
 name: KiCad CI & Release
 
 on:
-  # 构建始终在 push 时运行
   push:
     branches: [ main ]
-  # 手动触发时同时执行构建和发布
   workflow_dispatch:
     inputs:
       release_tag:
@@ -40,7 +38,7 @@ jobs:
 
       - name: Render 3D preview PNG
         run: |
-          python3 - <<EOF
+          python3 - << 'EOF'
           import pcbnew
           board = pcbnew.LoadBoard("project.kicad_pcb")
           settings = pcbnew.PCB_3D_VIEWER_SETTINGS().GetSettings()
@@ -50,13 +48,18 @@ jobs:
           pcbnew.PCB_3D(settings)
           EOF
 
-      - name: Zip all outputs
+      - name: Zip all outputs and set filename
         id: zip
         run: |
-          filename="kicad-output-${{ github.run_number }}-${{ github.sha::8 }}.zip"
+          # 在 Shell 中截取 GITHUB_SHA 的前 8 位
+          SHORT_SHA=${GITHUB_SHA:0:8}
+          FILENAME="kicad-output-${GITHUB_RUN_NUMBER}-${SHORT_SHA}.zip"
+
           cd output
-          zip -r ../${filename} gerber 3d
-          echo "::set-output name=filename::${filename}"
+          zip -r "../${FILENAME}" gerber 3d
+
+          # 新的 GitHub Actions 输出方式
+          echo "filename=${FILENAME}" >> $GITHUB_OUTPUT
 
       - name: Upload ZIP Artifact
         uses: actions/upload-artifact@v3
@@ -67,7 +70,6 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    # 仅在手动触发时运行
     if: ${{ github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Checkout repository
@@ -96,7 +98,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            kicad-output-*.zip
+            *.zip
             output/gerber/*.gbr
             output/gerber/*.drl
             output/3d/preview.png
