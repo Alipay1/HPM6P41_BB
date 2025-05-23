@@ -35,13 +35,14 @@ jobs:
         echo "=== output 目录结构 ==="
         ls -R output
 
-    - name: Compress each subfolder under output into a zip
+    - name: Compress Output Folders
       run: |
         cd output
-        # 对每个子文件夹单独压缩
+        # 遍历所有子目录并打包成同名 zip
         for dir in */; do
-          zip -qr "${dir%/}.zip" "$dir"
+          [ -d "$dir" ] && zip -qr "${dir%/}.zip" "$dir"
         done
+
 
     - name: List generated zip files
       run: |
