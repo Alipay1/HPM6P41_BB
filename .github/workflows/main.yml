@@ -51,21 +51,17 @@ jobs:
       - name: Zip all outputs and set filename
         id: zip
         run: |
-          # 在 Shell 中截取 GITHUB_SHA 的前 8 位
           SHORT_SHA=${GITHUB_SHA:0:8}
           FILENAME="kicad-output-${GITHUB_RUN_NUMBER}-${SHORT_SHA}.zip"
-
           cd output
           zip -r "../${FILENAME}" gerber 3d
-
-          # 新的 GitHub Actions 输出方式
           echo "filename=${FILENAME}" >> $GITHUB_OUTPUT
 
       - name: Upload ZIP Artifact
         uses: actions/upload-artifact@v3
         with:
           name: build-zip
-          path: ${{ needs.build.outputs.artifact-name }}
+          path: ${{ steps.zip.outputs.filename }}
 
   release:
     needs: build
@@ -98,7 +94,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            *.zip
+            ${{ steps.zip.outputs.filename }}
             output/gerber/*.gbr
             output/gerber/*.drl
             output/3d/preview.png
