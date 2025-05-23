@@ -1,0 +1,56 @@
+name: KiCad CI & Manual Release
+
+on:
+  # 每次 push 只做构建并打包，不做上传
+  push:
+    branches: [ main ]
+
+  # 手动触发时做完整的构建 + Release
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: '要创建的 Release 标签（比如 v1.0.0）'
+        required: true
+        default: 'v1.0.0'
+
+jobs:
+  build:
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install KiCad & pcbnew Python
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-7.0-releases
+          sudo apt update
+          sudo apt install -y kicad pcbnew-python3 zip
+
+      - name: Prepare output dirs
+        run: mkdir -p output/gerber output/3d
+
+      - name: Export Gerber & Drill
+        run: |
+          pcbnew --action=plot --plot-format=Gerber --output-dir=output/gerber project.kicad_pcb
+          pcbnew --action=drill --output-dir=output/gerber project.kicad_pcb
+
+      - name: Render 3D preview PNG
+        run: |
+          python3 - << 'EOF'
+          import pcbnew
+          board = pcbnew.LoadBoard("project.kicad_pcb")
+          settings = pcbnew.PCB_3D_VIEWER_SETTINGS().GetSettings()
+          settings.View3dFilename = "output/3d/preview.png"
+          settings.Width = 1920
+          settings.Height = 1080
+          pcbnew.PCB_3D(settings)
+          EOF
+
+      - name: Zip all outputs
+        run: |
+          SHORT_SHA=${GITHUB_SHA:0:8}
+          ZIP_NAME="kicad-output-${GITHUB_RUN_NUMBER}-${SHORT_SHA}.zip"
+          cd output
+          zip -r "../${ZIP_NAME}" gerber 3d
+          echo "✅ Artifact generated: ${ZIP_NAME}"
