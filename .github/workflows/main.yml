@@ -15,21 +15,19 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       artifact-name: ${{ steps.zip.outputs.filename }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up KiCad PPA
+      - name: Install KiCad
         run: |
           sudo add-apt-repository --yes ppa:kicad/kicad-7.0-releases
           sudo apt update
-
-      - name: Install KiCad & pcbnew Python
-        run: sudo apt install -y kicad pcbnew-python3
+          sudo apt install -y kicad pcbnew-python3
 
       - name: Prepare output dirs
-        run: |
-          mkdir -p output/gerber output/3d
+        run: mkdir -p output/gerber output/3d
 
       - name: Export Gerber & Drill
         run: |
@@ -57,8 +55,8 @@ jobs:
           zip -r "../${FILENAME}" gerber 3d
           echo "filename=${FILENAME}" >> $GITHUB_OUTPUT
 
-      - name: Upload ZIP Artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload ZIP Artifact (v2)
+        uses: actions/upload-artifact@v2
         with:
           name: build-zip
           path: ${{ steps.zip.outputs.filename }}
@@ -68,22 +66,22 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' }}
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Download ZIP Artifact
-        uses: actions/download-artifact@v3
+      - name: Download ZIP Artifact (v2)
+        uses: actions/download-artifact@v2
         with:
           name: build-zip
           path: .
 
-      - name: Create or update GitHub Release
+      - name: Create or update Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.release_tag }}
           name: KiCad Release ${{ github.event.inputs.release_tag }}
           body: |
-            包含自动生成的：
+            包含：
             - Gerber & Drill 文件 
             - 3D 预览图（PNG） 
             - 完整 ZIP 包
