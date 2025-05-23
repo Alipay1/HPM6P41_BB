@@ -17,7 +17,7 @@ jobs:
         uses: sparkengineering/kicad-action@v4
         with:
           # PCB 文件路径
-          kicad_pcb: 'project.kicad_pcb'
+          kicad_pcb: 'HPM6P41_BB.kicad_pro'
           # 开启 Gerber 导出
           pcb_gerbers: true
           pcb_gerbers_file: 'gerbers.zip'
