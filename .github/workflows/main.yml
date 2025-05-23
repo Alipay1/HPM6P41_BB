@@ -1,0 +1,104 @@
+name: KiCad CI & Release
+
+on:
+  # 构建始终在 push 时运行
+  push:
+    branches: [ main ]
+  # 手动触发时同时执行构建和发布
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: '要创建的 Release 标签（比如 v1.0.0）'
+        required: true
+        default: 'v1.0.0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: ${{ steps.zip.outputs.filename }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up KiCad PPA
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-7.0-releases
+          sudo apt update
+
+      - name: Install KiCad & pcbnew Python
+        run: sudo apt install -y kicad pcbnew-python3
+
+      - name: Prepare output dirs
+        run: |
+          mkdir -p output/gerber output/3d
+
+      - name: Export Gerber & Drill
+        run: |
+          pcbnew --action=plot --plot-format=Gerber --output-dir=output/gerber project.kicad_pcb
+          pcbnew --action=drill --output-dir=output/gerber project.kicad_pcb
+
+      - name: Render 3D preview PNG
+        run: |
+          python3 - <<EOF
+          import pcbnew
+          board = pcbnew.LoadBoard("project.kicad_pcb")
+          settings = pcbnew.PCB_3D_VIEWER_SETTINGS().GetSettings()
+          settings.View3dFilename = "output/3d/preview.png"
+          settings.Width = 1920
+          settings.Height = 1080
+          pcbnew.PCB_3D(settings)
+          EOF
+
+      - name: Zip all outputs
+        id: zip
+        run: |
+          filename="kicad-output-${{ github.run_number }}-${{ github.sha::8 }}.zip"
+          cd output
+          zip -r ../${filename} gerber 3d
+          echo "::set-output name=filename::${filename}"
+
+      - name: Upload ZIP Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-zip
+          path: ${{ needs.build.outputs.artifact-name }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    # 仅在手动触发时运行
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download ZIP Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-zip
+          path: .
+
+      - name: Create or update GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.release_tag }}
+          name: KiCad Release ${{ github.event.inputs.release_tag }}
+          body: |
+            包含自动生成的：
+            - Gerber & Drill 文件 
+            - 3D 预览图（PNG） 
+            - 完整 ZIP 包
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            kicad-output-*.zip
+            output/gerber/*.gbr
+            output/gerber/*.drl
+            output/3d/preview.png
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
