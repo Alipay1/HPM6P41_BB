@@ -5410,7 +5410,7 @@
 		(uuid "3016177a-e0a5-46fd-bf65-cadd5eae89a1")
 	)
 	(label "PD8"
-		(at 187.96 101.6 180)
+		(at 187.96 99.06 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5494,7 +5494,7 @@
 		(uuid "60bc7295-9e82-4254-a75d-fb4c0778b9fd")
 	)
 	(label "PD6"
-		(at 187.96 99.06 180)
+		(at 187.96 101.6 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5708,7 +5708,7 @@
 		(uuid "a5bdec5a-2041-4b53-bb78-79a96f6cc6d7")
 	)
 	(label "PD7"
-		(at 187.96 96.52 180)
+		(at 187.96 104.14 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5770,7 +5770,7 @@
 		(uuid "b80f973e-8449-41d0-aa90-27fe709d771a")
 	)
 	(label "PD9"
-		(at 187.96 104.14 180)
+		(at 187.96 96.52 180)
 		(effects
 			(font
 				(size 1.27 1.27)

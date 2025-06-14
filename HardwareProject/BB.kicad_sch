@@ -9337,7 +9337,7 @@
 				)
 			)
 		)
-		(property "Footprint" "HPM6P41_BB:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm"
+		(property "Footprint" "TexasInstruments:DRM8_3P38X2P45_TEX"
 			(at 46.99 119.38 0)
 			(effects
 				(font
@@ -9428,7 +9428,7 @@
 				)
 			)
 		)
-		(property "Footprint" "HPM6P41_BB:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm"
+		(property "Footprint" "TexasInstruments:DRM8_3P38X2P45_TEX"
 			(at 138.43 119.38 0)
 			(effects
 				(font

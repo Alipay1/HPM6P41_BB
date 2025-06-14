@@ -2712,12 +2712,6 @@
 		(uuid "bf5a2b06-1900-44f7-9ccf-7ee782bb0432")
 	)
 	(junction
-		(at 74.93 27.94)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c003785e-43bd-4a9e-886c-baf61b658d3d")
-	)
-	(junction
 		(at 237.49 130.81)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3006,16 +3000,6 @@
 			(type default)
 		)
 		(uuid "40071cd2-cbf7-4356-b064-d57bcf738885")
-	)
-	(wire
-		(pts
-			(xy 74.93 27.94) (xy 74.93 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "429fa379-3080-472d-928d-2c8cee140063")
 	)
 	(wire
 		(pts
@@ -4022,6 +4006,72 @@
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/ae00fc9a-f385-4ed0-b801-78ac3a8c32a6"
 					(reference "C78")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 74.93 30.48 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "08ed50dd-49b7-4542-9ebc-4d49f17e68a0")
+		(property "Reference" "#PWR0190"
+			(at 74.93 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 74.93 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 74.93 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 74.93 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 74.93 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6893a936-726d-48c5-9a6c-eb1523a6ecf6")
+		)
+		(instances
+			(project "HPM6P41_BB"
+				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/ae00fc9a-f385-4ed0-b801-78ac3a8c32a6"
+					(reference "#PWR0190")
 					(unit 1)
 				)
 			)
