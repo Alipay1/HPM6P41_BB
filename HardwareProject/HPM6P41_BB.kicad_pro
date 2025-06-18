@@ -571,7 +571,7 @@
       "idf": "",
       "netlist": "",
       "plot": "./out",
-      "pos_files": "",
+      "pos_files": "./out/smt",
       "specctra_dsn": "",
       "step": "HPM6P41_BB.step",
       "svg": "",
