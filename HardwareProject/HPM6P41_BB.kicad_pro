@@ -573,7 +573,7 @@
       "plot": "./out",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "HPM6P41_BB.step",
       "svg": "",
       "vrml": ""
     },

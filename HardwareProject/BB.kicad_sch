@@ -11,6 +11,126 @@
 		(company "Author: Alipay")
 	)
 	(lib_symbols
+		(symbol "Connector:TestPoint_Probe"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 1.651 5.842 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint_Probe"
+				(at 1.651 4.064 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point (alternative probe-style design)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_Probe_0_1"
+				(polyline
+					(pts
+						(xy 1.27 0.762) (xy 0 0) (xy 0.762 1.27) (xy 1.27 0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.397 0.635) (xy 0.635 1.397) (xy 2.413 3.175) (xy 3.175 2.413) (xy 1.397 0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "TestPoint_Probe_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 0)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector_Generic:Conn_01x01"
 			(pin_names
 				(offset 1.016)
@@ -2531,6 +2651,12 @@
 		(uuid "0e886fa4-fd08-4e85-a1dc-963491b9d2ec")
 	)
 	(junction
+		(at 43.18 107.95)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0f70e1b7-b1b6-4f71-b0b7-7030bb55eaa1")
+	)
+	(junction
 		(at 97.79 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2613,6 +2739,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6723951d-2631-4058-8e1a-ef2568f02cdf")
+	)
+	(junction
+		(at 40.64 110.49)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6b06b762-f5ea-43ce-882c-4dc97d47a030")
 	)
 	(junction
 		(at 97.79 128.27)
@@ -2699,6 +2831,12 @@
 		(uuid "ab712471-1445-49c5-93bd-3c5dba88ba79")
 	)
 	(junction
+		(at 132.08 110.49)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "acaf5098-bf74-4cdd-89f4-46bc19351a63")
+	)
+	(junction
 		(at 198.12 35.56)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2709,6 +2847,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b180fe36-3cb3-4027-b797-6d26a28e8bbd")
+	)
+	(junction
+		(at 134.62 107.95)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b32286c6-b3d1-439a-921c-1d2c2f9593f0")
 	)
 	(junction
 		(at 120.65 118.11)
@@ -2781,6 +2925,16 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "fce6c362-9db5-483f-92e9-66f03ee33b5e")
+	)
+	(wire
+		(pts
+			(xy 132.08 110.49) (xy 137.16 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0213d7d0-2ce8-4d18-8562-22734732ff68")
 	)
 	(wire
 		(pts
@@ -2934,7 +3088,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 106.68) (xy 40.64 111.76)
+			(xy 40.64 106.68) (xy 40.64 110.49)
 		)
 		(stroke
 			(width 0)
@@ -2991,6 +3145,26 @@
 			(type default)
 		)
 		(uuid "25517e5a-0574-4276-a8da-678b6e68fcd3")
+	)
+	(wire
+		(pts
+			(xy 134.62 107.95) (xy 137.16 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27124b49-4a24-4288-a2fb-9e42649aac6f")
+	)
+	(wire
+		(pts
+			(xy 43.18 107.95) (xy 43.18 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2add18be-36e3-43c9-a286-78fa89285f27")
 	)
 	(wire
 		(pts
@@ -3234,7 +3408,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 106.68) (xy 43.18 111.76)
+			(xy 43.18 106.68) (xy 43.18 107.95)
 		)
 		(stroke
 			(width 0)
@@ -3381,6 +3555,16 @@
 			(type default)
 		)
 		(uuid "62bc900c-6ada-4627-b0b4-839a140bc5ab")
+	)
+	(wire
+		(pts
+			(xy 40.64 110.49) (xy 40.64 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "633a85a7-0a71-4939-a074-b17de69364c2")
 	)
 	(wire
 		(pts
@@ -3634,16 +3818,6 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 106.68) (xy 134.62 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "983ef897-1888-45c6-a768-456928c27948")
-	)
-	(wire
-		(pts
 			(xy 162.56 55.88) (xy 162.56 53.34)
 		)
 		(stroke
@@ -3661,6 +3835,16 @@
 			(type default)
 		)
 		(uuid "9ca7010e-a45a-4d88-ab37-8e70d3aa6b39")
+	)
+	(wire
+		(pts
+			(xy 134.62 107.95) (xy 134.62 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9edac532-4879-4588-9849-0f3b6978f58a")
 	)
 	(wire
 		(pts
@@ -3834,6 +4018,16 @@
 	)
 	(wire
 		(pts
+			(xy 40.64 110.49) (xy 45.72 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb981653-37e2-4044-b37c-9eb194d55d8e")
+	)
+	(wire
+		(pts
 			(xy 198.12 59.69) (xy 198.12 71.12)
 		)
 		(stroke
@@ -3874,7 +4068,7 @@
 	)
 	(wire
 		(pts
-			(xy 132.08 106.68) (xy 132.08 111.76)
+			(xy 132.08 106.68) (xy 132.08 110.49)
 		)
 		(stroke
 			(width 0)
@@ -4044,6 +4238,16 @@
 	)
 	(wire
 		(pts
+			(xy 132.08 110.49) (xy 132.08 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e3f15fb4-6f4b-48a9-9a90-3100ec8661ff")
+	)
+	(wire
+		(pts
 			(xy 180.34 35.56) (xy 180.34 52.07)
 		)
 		(stroke
@@ -4194,6 +4398,16 @@
 	)
 	(wire
 		(pts
+			(xy 134.62 106.68) (xy 134.62 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fdf98466-3975-46c0-b346-060443497dc4")
+	)
+	(wire
+		(pts
 			(xy 123.19 63.5) (xy 125.73 63.5)
 		)
 		(stroke
@@ -4201,6 +4415,16 @@
 			(type default)
 		)
 		(uuid "fea3f6c1-749a-45bb-a648-1d2e2cc0d951")
+	)
+	(wire
+		(pts
+			(xy 43.18 107.95) (xy 45.72 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "febe1c0b-c2aa-4268-93b3-f7854160d2b2")
 	)
 	(wire
 		(pts
@@ -5342,6 +5566,74 @@
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/89c5bb8e-77b8-47ed-968d-36636acd2e72"
 					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Probe")
+		(at 137.16 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "19fd5366-2ca6-48ec-8617-9ada7137ff56")
+		(property "Reference" "TP2"
+			(at 140.97 107.6324 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Probe"
+			(at 140.97 110.1724 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "HPM6P41_BB:TestPoint_Bridge_Pitch1.2mm_Drill0.7mm"
+			(at 142.24 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 142.24 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative probe-style design)"
+			(at 137.16 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "37ba9a9d-1934-4528-b929-615756c1867c")
+		)
+		(instances
+			(project "HPM6P41_BB"
+				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/89c5bb8e-77b8-47ed-968d-36636acd2e72"
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -7788,6 +8080,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint_Probe")
+		(at 45.72 107.95 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "73530ca5-6d05-4987-94fb-e338a5a56291")
+		(property "Reference" "TP3"
+			(at 49.53 105.0924 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Probe"
+			(at 49.53 107.6324 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "HPM6P41_BB:TestPoint_Bridge_Pitch1.2mm_Drill0.7mm"
+			(at 50.8 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 50.8 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative probe-style design)"
+			(at 45.72 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ab22bc6b-c8b8-4866-b861-17a05057601a")
+		)
+		(instances
+			(project "HPM6P41_BB"
+				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/89c5bb8e-77b8-47ed-968d-36636acd2e72"
+					(reference "TP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:D")
 		(at 242.57 107.95 0)
 		(mirror y)
@@ -8469,6 +8829,74 @@
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/89c5bb8e-77b8-47ed-968d-36636acd2e72"
 					(reference "#PWR015")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Probe")
+		(at 45.72 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "94149b8e-cd6c-4e4b-8845-9e873ad037f7")
+		(property "Reference" "TP4"
+			(at 49.53 107.6324 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Probe"
+			(at 49.53 110.1724 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "HPM6P41_BB:TestPoint_Bridge_Pitch1.2mm_Drill0.7mm"
+			(at 50.8 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 50.8 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative probe-style design)"
+			(at 45.72 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e5357d17-d9a6-42fa-89fd-c838b4c6bca3")
+		)
+		(instances
+			(project "HPM6P41_BB"
+				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/89c5bb8e-77b8-47ed-968d-36636acd2e72"
+					(reference "TP4")
 					(unit 1)
 				)
 			)
@@ -10609,6 +11037,74 @@
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/89c5bb8e-77b8-47ed-968d-36636acd2e72"
 					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Probe")
+		(at 137.16 107.95 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e7a5956e-60a1-48b1-9b50-cb3fe711aeaf")
+		(property "Reference" "TP1"
+			(at 140.97 105.0924 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Probe"
+			(at 140.97 107.6324 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "HPM6P41_BB:TestPoint_Bridge_Pitch1.2mm_Drill0.7mm"
+			(at 142.24 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 142.24 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative probe-style design)"
+			(at 137.16 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "df39adc1-ad62-48f9-aeaf-4713a6000073")
+		)
+		(instances
+			(project "HPM6P41_BB"
+				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/89c5bb8e-77b8-47ed-968d-36636acd2e72"
+					(reference "TP1")
 					(unit 1)
 				)
 			)
