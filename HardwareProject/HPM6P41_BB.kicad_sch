@@ -673,6 +673,16 @@
 	)
 	(wire
 		(pts
+			(xy 133.35 138.43) (xy 140.97 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1a6ba969-770a-4705-932d-c439b1bf5f0d")
+	)
+	(wire
+		(pts
 			(xy 196.85 85.09) (xy 201.93 85.09)
 		)
 		(stroke
@@ -990,6 +1000,16 @@
 			(type default)
 		)
 		(uuid "9f104f43-28e9-41a9-9437-b1fbcf45d5b4")
+	)
+	(wire
+		(pts
+			(xy 140.97 140.97) (xy 133.35 140.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a26f2328-0b81-408c-a4d0-5b1360b2263f")
 	)
 	(wire
 		(pts
@@ -5451,6 +5471,17 @@
 		)
 		(uuid "4bd769c6-0b0e-405e-88bd-5714b1e399e9")
 	)
+	(label "PD25"
+		(at 133.35 140.97 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+				(color 36 73 139 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "4d5e27a0-75a5-48e7-b0ca-cdd8760ca53c")
+	)
 	(label "PA3"
 		(at 196.85 58.42 0)
 		(effects
@@ -5655,6 +5686,17 @@
 			(justify right bottom)
 		)
 		(uuid "8f987115-edb3-4378-a717-3879c69f937e")
+	)
+	(label "PD24"
+		(at 133.35 138.43 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+				(color 36 73 139 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "928fd904-3e2f-444a-ac5f-676cb8e7af4f")
 	)
 	(label "PD20"
 		(at 196.85 85.09 0)
@@ -7664,8 +7706,8 @@
 		)
 	)
 	(sheet
-		(at 141.605 135.89)
-		(size 26.035 33.02)
+		(at 140.97 135.89)
+		(size 26.67 33.02)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -7680,7 +7722,7 @@
 		)
 		(uuid "ae00fc9a-f385-4ed0-b801-78ac3a8c32a6")
 		(property "Sheetname" "POWER"
-			(at 141.605 135.1784 0)
+			(at 140.97 135.1784 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7689,12 +7731,32 @@
 			)
 		)
 		(property "Sheetfile" "POWER.kicad_sch"
-			(at 141.605 169.4946 0)
+			(at 140.97 169.4946 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "SYR838_SCL" input
+			(at 140.97 138.43 180)
+			(uuid "2303f702-ec65-43f0-a90e-805cf273669e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SYR838_SDA" input
+			(at 140.97 140.97 180)
+			(uuid "df76c490-6d63-4aa5-966e-73edde92b368")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances

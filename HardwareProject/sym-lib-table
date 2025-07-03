@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "SYR838PKC")(type "KiCad")(uri "${KIPRJMOD}/hq_libs/SYR838PKC.kicad_sym")(options "")(descr "由华秋在线符号添加"))
+)

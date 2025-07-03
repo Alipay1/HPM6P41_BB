@@ -6881,7 +6881,7 @@
 		)
 		(uuid e794220f-9eff-481c-9425-c31b190888aa)
 	)
-	(text "USB EEPROM\nJTAG TRGM 温度计"
+	(text "EEPROM JTAG TRGM 温度计"
 		(exclude_from_sim no)
 		(at 95.504 185.42 0)
 		(effects
