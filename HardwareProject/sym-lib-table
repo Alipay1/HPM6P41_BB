@@ -1,4 +1,6 @@
 (sym_lib_table
   (version 7)
   (lib (name "SYR838PKC")(type "KiCad")(uri "${KIPRJMOD}/hq_libs/SYR838PKC.kicad_sym")(options "")(descr "由华秋在线符号添加"))
+  (lib (name "CA-IS3762HN")(type "KiCad")(uri "${KIPRJMOD}/hq_libs/CA-IS3762HN.kicad_sym")(options "")(descr "由华秋在线符号添加"))
+  (lib (name "SDCW2012-2-900TF")(type "KiCad")(uri "${KIPRJMOD}/hq_libs/SDCW2012-2-900TF.kicad_sym")(options "")(descr "由华秋在线符号添加"))
 )
