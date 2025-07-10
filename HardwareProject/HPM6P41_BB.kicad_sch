@@ -11,6 +11,130 @@
 		(company "Author: Alipay")
 	)
 	(lib_symbols
+		(symbol "Device:R"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Mechanical:Fiducial"
 			(exclude_from_sim no)
 			(in_bom no)
@@ -600,10 +724,10 @@
 		(uuid "13841352-9325-41fc-b0f7-d3d1841ae282")
 	)
 	(junction
-		(at 187.96 31.75)
+		(at 188.0119 31.75)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "4ca20e7c-7382-4d1b-bcf6-496f7ee531df")
+		(uuid "67ac1fb5-fff9-47d3-8cb0-9bc3743010e4")
 	)
 	(junction
 		(at 203.2 31.75)
@@ -933,6 +1057,16 @@
 	)
 	(wire
 		(pts
+			(xy 188.0119 31.75) (xy 195.58 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7b51c5f1-b295-47bb-93cf-b82da0883c2e")
+	)
+	(wire
+		(pts
 			(xy 182.88 99.06) (xy 187.96 99.06)
 		)
 		(stroke
@@ -1223,7 +1357,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 31.75) (xy 195.58 31.75)
+			(xy 187.96 31.75) (xy 188.0119 31.75)
 		)
 		(stroke
 			(width 0)
@@ -1293,7 +1427,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 31.75) (xy 187.96 31.75)
+			(xy 180.34 31.75) (xy 180.3919 31.75)
 		)
 		(stroke
 			(width 0)
@@ -6475,6 +6609,74 @@
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a"
 					(reference "H4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 184.2019 31.75 90)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d9872eda-cda8-401b-b80a-0ac6ccc39bbc")
+		(property "Reference" "R56"
+			(at 184.2019 29.464 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0Ω"
+			(at 184.2019 31.75 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 184.2019 29.972 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 184.2019 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 184.2019 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8e662c5b-c56b-4a6d-909b-889407e3ec1b")
+		)
+		(pin "2"
+			(uuid "41b680ec-7ab6-4e40-9951-e9041d4f78e5")
+		)
+		(instances
+			(project "HPM6P41_BB"
+				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a"
+					(reference "R56")
 					(unit 1)
 				)
 			)

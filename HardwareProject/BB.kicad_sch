@@ -2831,12 +2831,6 @@
 		(uuid "a0ce7eaf-693c-4bba-a7d3-3288ebee73a3")
 	)
 	(junction
-		(at 133.35 55.88)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a2b44639-b92c-4d7a-a2bc-fc20d828a93a")
-	)
-	(junction
 		(at 191.77 35.56)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2945,6 +2939,12 @@
 		(uuid "e96cfbf6-f55f-4157-b637-5741d6a58c68")
 	)
 	(junction
+		(at 133.35 55.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ea0c6f18-36f4-436e-ab42-c3e56d187a13")
+	)
+	(junction
 		(at 189.23 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3045,16 +3045,6 @@
 			(type default)
 		)
 		(uuid "0d544c1a-1431-4d55-bdd4-dc71d2b22d9d")
-	)
-	(wire
-		(pts
-			(xy 147.32 55.88) (xy 149.86 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0e9a1f6a-78ec-4462-bba5-8f08f7ae5d2f")
 	)
 	(wire
 		(pts
@@ -3235,6 +3225,16 @@
 			(type default)
 		)
 		(uuid "27124b49-4a24-4288-a2fb-9e42649aac6f")
+	)
+	(wire
+		(pts
+			(xy 133.35 55.88) (xy 133.35 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "289de207-8f4c-42d8-b94e-4cf3cfafb62d")
 	)
 	(wire
 		(pts
@@ -3445,16 +3445,6 @@
 			(type default)
 		)
 		(uuid "46840b1b-8abd-4d20-bca4-d492ce1ebf4e")
-	)
-	(wire
-		(pts
-			(xy 133.35 53.34) (xy 133.35 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4761551e-9345-4eff-b6b4-fce97545cbe5")
 	)
 	(wire
 		(pts
@@ -3728,7 +3718,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 55.88) (xy 173.99 55.88)
+			(xy 149.86 55.88) (xy 153.67 55.88)
 		)
 		(stroke
 			(width 0)
@@ -3835,6 +3825,16 @@
 			(type default)
 		)
 		(uuid "8272416e-f003-438d-81a8-887461878a1c")
+	)
+	(wire
+		(pts
+			(xy 161.29 55.88) (xy 173.99 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8cd72eaf-1b02-40a5-88ff-98d41155ddd7")
 	)
 	(wire
 		(pts
@@ -3955,6 +3955,16 @@
 			(type default)
 		)
 		(uuid "a01b0ad5-02b3-444e-94ed-5b075edbbc26")
+	)
+	(wire
+		(pts
+			(xy 133.35 55.88) (xy 139.7 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a059523c-4772-455c-96c9-944b3b107f6c")
 	)
 	(wire
 		(pts
@@ -4118,7 +4128,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 55.88) (xy 133.35 58.42)
+			(xy 133.35 53.34) (xy 133.35 55.88)
 		)
 		(stroke
 			(width 0)
@@ -4315,16 +4325,6 @@
 			(type default)
 		)
 		(uuid "e20ea0ad-40af-419c-84c2-873c0aaa1fb1")
-	)
-	(wire
-		(pts
-			(xy 133.35 55.88) (xy 139.7 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e2485112-b99a-487e-9466-eaca77184ed2")
 	)
 	(wire
 		(pts
@@ -4587,7 +4587,7 @@
 		(uuid "2b8ff6b9-93e5-46a9-9441-3284aa6baf5f")
 	)
 	(label "S1"
-		(at 137.16 55.88 0)
+		(at 135.89 55.88 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4728,7 +4728,7 @@
 	)
 	(hierarchical_label "ISENSE+"
 		(shape output)
-		(at 152.4 52.07 90)
+		(at 142.24 52.07 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4805,7 +4805,7 @@
 	)
 	(hierarchical_label "ISENSE-"
 		(shape output)
-		(at 157.48 52.07 90)
+		(at 147.32 52.07 90)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5028,7 +5028,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
+		(property "Footprint" "Diode_SMD:D_SOD-523"
 			(at 267.97 130.81 0)
 			(effects
 				(font
@@ -5107,7 +5107,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "BZT52C9V1S"
+		(property "Value" "LM5Z12VT1G"
 			(at 127 130.8099 90)
 			(effects
 				(font
@@ -5116,7 +5116,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
+		(property "Footprint" "Diode_SMD:D_SOD-523"
 			(at 120.015 129.54 0)
 			(effects
 				(font
@@ -5250,7 +5250,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
+		(property "Footprint" "Diode_SMD:D_SOD-523"
 			(at 185.42 128.27 0)
 			(effects
 				(font
@@ -5319,9 +5319,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0f4ae95c-f8f7-49a9-8f5c-1d2599857714")
+		(uuid "0e7d33b9-f1b5-4815-8831-43007df5332d")
 		(property "Reference" "C12"
-			(at 245.11 113.03 0)
+			(at 243.84 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5329,8 +5329,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1uF,100V"
-			(at 245.11 115.57 0)
+		(property "Value" "100nF 50V"
+			(at 243.84 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5338,7 +5338,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 246.6848 118.11 0)
 			(effects
 				(font
@@ -5366,10 +5366,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "2a5e52c4-89f2-4f27-b27b-35a3cceb1fd8")
+			(uuid "97a373fd-e40f-4d92-822d-17155c1f79d8")
 		)
 		(pin "2"
-			(uuid "2c6024fb-d2ab-424a-9119-097d1e1a81d1")
+			(uuid "eae89d3b-efb9-4ea5-b76d-16fc4fc8d27d")
 		)
 		(instances
 			(project "HPM6P41_BB"
@@ -5717,8 +5717,7 @@
 	)
 	(symbol
 		(lib_id "Device:L")
-		(at 143.51 55.88 270)
-		(mirror x)
+		(at 157.48 55.88 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5726,23 +5725,23 @@
 		(dnp no)
 		(uuid "1fc9e4be-47a2-4e1e-a71c-55dcfea3ad09")
 		(property "Reference" "L1"
-			(at 143.51 24.638 90)
+			(at 157.48 24.638 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "PQ26XX"
-			(at 143.51 27.178 90)
+		(property "Value" "VER2923"
+			(at 157.48 27.178 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "HPM6P41_BB:PQ26XX"
-			(at 143.51 55.88 0)
+		(property "Footprint" "HPM6P41_BB:IND_VER2923_COC"
+			(at 157.48 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5751,7 +5750,7 @@
 			)
 		)
 		(property "Datasheet" "https://item.taobao.com/item.htm?abbucket=7&detail_redpacket_pop=true&id=720155544714&ltk2=1751571040185qxfzaik8tl8w9ga4al65t&ns=1&priceTId=2150461f17515710174581004e1998&query=%E6%89%81%E7%BA%BF%E7%94%B5%E6%84%9F&skuId=5020784061930&spm=a21n57.1.hoverItem.5&utparam=%7B%22aplus_abtest%22%3A%22408e17028328a63eae2f146e62d6c52f%22%7D&xxc=taobaoSearch"
-			(at 143.51 55.88 0)
+			(at 157.48 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5760,7 +5759,7 @@
 			)
 		)
 		(property "Description" "羰基粉电感 2.2uH 48A"
-			(at 143.51 55.88 0)
+			(at 157.48 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6231,7 +6230,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
+		(property "Footprint" "Diode_SMD:D_SOD-523"
 			(at 185.42 113.03 0)
 			(effects
 				(font
@@ -7311,7 +7310,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Shunt")
-		(at 154.94 55.88 270)
+		(at 144.78 55.88 270)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7320,7 +7319,7 @@
 		(dnp no)
 		(uuid "53d743e3-13cd-41fb-84ee-2236bcd33f66")
 		(property "Reference" "R10"
-			(at 154.94 59.69 90)
+			(at 144.78 59.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7328,7 +7327,7 @@
 			)
 		)
 		(property "Value" "1mΩ 5W"
-			(at 154.94 62.23 90)
+			(at 144.78 62.23 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7336,7 +7335,7 @@
 			)
 		)
 		(property "Footprint" "HPM6P41_BB:R_Shunt_2725_2726"
-			(at 154.94 57.658 90)
+			(at 144.78 57.658 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7345,7 +7344,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 154.94 55.88 0)
+			(at 144.78 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7354,7 +7353,7 @@
 			)
 		)
 		(property "Description" "Shunt resistor"
-			(at 154.94 55.88 0)
+			(at 144.78 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7821,7 +7820,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
+		(property "Footprint" "Diode_SMD:D_SOD-523"
 			(at 257.81 130.81 0)
 			(effects
 				(font
@@ -8322,7 +8321,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
+		(property "Footprint" "Diode_SMD:D_SOD-523"
 			(at 242.57 107.95 0)
 			(effects
 				(font
@@ -8510,76 +8509,6 @@
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/89c5bb8e-77b8-47ed-968d-36636acd2e72"
 					(reference "#PWR011")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 262.89 137.16 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "8016e8f4-3bce-467f-bb96-c3aa0f2eb357")
-		(property "Reference" "C13"
-			(at 260.35 135.89 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1uF,100V"
-			(at 260.35 138.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 261.9248 140.97 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 262.89 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 262.89 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5d23a5b3-2a24-4733-ac2f-6237ab4c102c")
-		)
-		(pin "2"
-			(uuid "05242e09-33cc-40ec-bde9-9eaa83f5ebe4")
-		)
-		(instances
-			(project "HPM6P41_BB"
-				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/89c5bb8e-77b8-47ed-968d-36636acd2e72"
-					(reference "C13")
 					(unit 1)
 				)
 			)
@@ -8868,7 +8797,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "BZT52C9V1S"
+		(property "Value" "LM5Z12VT1G"
 			(at 35.56 130.8099 90)
 			(effects
 				(font
@@ -8877,7 +8806,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
+		(property "Footprint" "Diode_SMD:D_SOD-523"
 			(at 28.575 129.54 0)
 			(effects
 				(font
@@ -9184,6 +9113,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 262.89 137.16 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9699fb49-6921-4cc6-b2ab-cf69d2d8aa2e")
+		(property "Reference" "C13"
+			(at 259.08 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF 50V"
+			(at 259.08 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 261.9248 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 262.89 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 262.89 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0b2243d5-c194-4dae-bf51-86be35bac26a")
+		)
+		(pin "2"
+			(uuid "0b70b955-db17-40d2-ac4d-6ae0c497c4c0")
+		)
+		(instances
+			(project "HPM6P41_BB"
+				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/89c5bb8e-77b8-47ed-968d-36636acd2e72"
+					(reference "C13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 261.62 107.95 270)
 		(unit 1)
@@ -9423,7 +9422,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
+		(property "Footprint" "Diode_SMD:D_SOD-523"
 			(at 252.73 107.95 0)
 			(effects
 				(font
@@ -9752,7 +9751,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDREF")
-		(at 143.51 59.69 0)
+		(at 157.48 59.69 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9760,7 +9759,7 @@
 		(dnp no)
 		(uuid "a9a7669e-72c6-43a0-a63d-4f0fa8b7a4a6")
 		(property "Reference" "#PWR021"
-			(at 143.51 66.04 0)
+			(at 157.48 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9769,7 +9768,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 139.192 59.69 0)
+			(at 153.162 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9777,7 +9776,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 143.51 59.69 0)
+			(at 157.48 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9786,7 +9785,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 143.51 59.69 0)
+			(at 157.48 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9795,7 +9794,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDREF\" , reference supply ground"
-			(at 143.51 59.69 0)
+			(at 157.48 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10910,7 +10909,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
+		(property "Footprint" "Diode_SMD:D_SOD-523"
 			(at 93.98 128.27 0)
 			(effects
 				(font
@@ -11400,7 +11399,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
+		(property "Footprint" "Diode_SMD:D_SOD-523"
 			(at 93.98 113.03 0)
 			(effects
 				(font
@@ -11871,7 +11870,7 @@
 		(dnp no)
 		(uuid "f340301d-98ce-4c1b-b17c-04cc408efb7c")
 		(property "Reference" "Q1"
-			(at 135.382 44.45 0)
+			(at 134.62 50.8 90)
 			(effects
 				(font
 					(size 1.143 1.143)
@@ -11880,7 +11879,7 @@
 			)
 		)
 		(property "Value" "HYG080N10LS1C2"
-			(at 135.382 46.99 0)
+			(at 137.16 50.8 90)
 			(effects
 				(font
 					(size 1.143 1.143)

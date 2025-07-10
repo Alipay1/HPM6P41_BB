@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.15,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.1524
+          "min_clearance": 1.27
         }
       },
       "diff_pair_dimensions": [
@@ -541,13 +541,25 @@
       },
       {
         "clearance": 0.508,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "10mil3W",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.254,
+        "via_diameter": 0.5,
+        "via_drill": 0.3
+      },
+      {
+        "clearance": 0.508,
         "diff_pair_gap": 4.0,
         "diff_pair_width": 8.0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "USB_DATA",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 0,
+        "priority": 1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 8.0,
         "via_diameter": 0.5,
@@ -558,7 +570,62 @@
       "version": 4
     },
     "net_colors": null,
-    "netclass_assignments": null,
+    "netclass_assignments": {
+      "/BB/InputVsense+": [
+        "Default"
+      ],
+      "/BB/OutputVsense+": [
+        "Default"
+      ],
+      "/MCU_MISC/485_DE_ISO": [
+        "Default"
+      ],
+      "/MCU_MISC/485_RX_ISO": [
+        "Default"
+      ],
+      "/MCU_MISC/485_TX_ISO": [
+        "Default"
+      ],
+      "/MCU_MISC/CAN_RXD_ISO": [
+        "Default"
+      ],
+      "/MCU_MISC/CAN_STBY_ISO": [
+        "Default"
+      ],
+      "/MCU_MISC/CAN_TXD_ISO": [
+        "Default"
+      ],
+      "/PD8": [
+        "Default"
+      ],
+      "GND": [
+        "Default"
+      ],
+      "GNDA": [
+        "Default"
+      ],
+      "Net-(R56-Pad2)": [
+        "Default"
+      ],
+      "Net-(R57-Pad2)": [
+        "Default"
+      ],
+      "Net-(U17-+)": [
+        "Default"
+      ],
+      "Net-(U17--)": [
+        "Default"
+      ],
+      "Net-(U20-+)": [
+        "Default"
+      ],
+      "Net-(U20--)": [
+        "Default"
+      ],
+      "VANA": [
+        "Default"
+      ]
+    },
     "netclass_patterns": [
       {
         "netclass": "Default",
