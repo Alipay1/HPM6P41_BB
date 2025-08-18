@@ -2,4 +2,5 @@
   (version 7)
   (lib (name "HPM6P41_BB")(type "KiCad")(uri "${KIPRJMOD}/HPM6P41_BB.pretty")(options "")(descr ""))
   (lib (name "kicad_community_lib")(type "KiCad")(uri "${KIPRJMOD}/hq_libs/kicad_community_lib.pretty")(options "")(descr "由华秋在线符号添加"))
+  (lib (name "kicad_api_lib")(type "KiCad")(uri "${KIPRJMOD}/kicad_api_libs/kicad_api_lib.pretty")(options "Added by schematic API")(descr ""))
 )

@@ -36,3 +36,10 @@ ibom.html
 *.pretty
 
 \out
+
+#software_example
+*flash_sdram_xip_debug
+*flash_xip_debug
+*ram_debug
+*.o
+*.d

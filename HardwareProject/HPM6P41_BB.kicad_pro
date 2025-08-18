@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.15,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 1.27
+          "min_clearance": 0.508
         }
       },
       "diff_pair_dimensions": [
@@ -511,7 +511,8 @@
   "libraries": {
     "pinned_footprint_libs": [
       "HPM6P41_BB",
-      "kicad_community_lib"
+      "kicad_community_lib",
+      "kicad_api_lib"
     ],
     "pinned_symbol_libs": []
   },

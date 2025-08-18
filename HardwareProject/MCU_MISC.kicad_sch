@@ -5911,7 +5911,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "SCC2211X102K502T:SCC2211X102K502T"
+		(symbol "SCC1808X102K502TS:SCC1808X102K502TS"
 			(pin_numbers
 				(hide yes)
 			)
@@ -5931,17 +5931,16 @@
 					(justify left)
 				)
 			)
-			(property "Value" ""
+			(property "Value" "SCC1808X102K502TS"
 				(at 0.254 -2.032 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 					(justify left)
-					(hide yes)
 				)
 			)
-			(property "Footprint" "kicad_community_lib:SCC2211X102K502T"
+			(property "Footprint" "kicad_api_lib:SCC1808X102K502TS"
 				(at 0 0 0)
 				(effects
 					(font
@@ -5950,7 +5949,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" ""
+			(property "Datasheet" "https://file.elecfans.com/web2/M00/22/AF/poYBAGGoaTeAQmH1AAyzIp8aHB4719.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -5959,7 +5958,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Safety Capacitors 2211 1nF ±10% 250V"
+			(property "Description" "Safety Capacitors 1808 1nF ±10% 250V"
 				(at 0 0 0)
 				(effects
 					(font
@@ -5968,7 +5967,7 @@
 					(hide yes)
 				)
 			)
-			(property "Mpn" "SCC2211X102K502T"
+			(property "MPN" "SCC1808X102K502TS"
 				(at 0 0 0)
 				(effects
 					(font
@@ -5986,6 +5985,33 @@
 					(hide yes)
 				)
 			)
+			(property "Grade" "X1,Y2"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MFG" "IHHEC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MFR Package Code" "1808"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
 			(property "Mount" "表面贴装"
 				(at 0 0 0)
 				(effects
@@ -5995,7 +6021,25 @@
 					(hide yes)
 				)
 			)
+			(property "Operating Temperature" "-55 °C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
 			(property "Tolerance" "10 %"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "packaging" "1000pcs"
 				(at 0 0 0)
 				(effects
 					(font
@@ -6022,7 +6066,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "SCC2211X102K502T_0_1"
+			(symbol "SCC1808X102K502TS_0_1"
 				(polyline
 					(pts
 						(xy -1.524 0.508) (xy 1.524 0.508)
@@ -6048,7 +6092,7 @@
 					)
 				)
 			)
-			(symbol "SCC2211X102K502T_1_1"
+			(symbol "SCC1808X102K502TS_1_1"
 				(pin passive line
 					(at 0 2.54 270)
 					(length 2.032)
@@ -12464,6 +12508,155 @@
 		)
 	)
 	(symbol
+		(lib_id "SCC1808X102K502TS:SCC1808X102K502TS")
+		(at 146.05 162.56 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3d1a0476-4fb4-4395-b432-b6d8389f47e1")
+		(property "Reference" "C104"
+			(at 146.0436 168.91 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SCC1808X102K502TS"
+			(at 146.0436 166.37 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1808_4520Metric"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://file.elecfans.com/web2/M00/22/AF/poYBAGGoaTeAQmH1AAyzIp8aHB4719.pdf"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Safety Capacitors 1808 1nF ±10% 250V"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "SCC1808X102K502TS"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "IHHEC"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Grade" "X1,Y2"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MFG" "IHHEC"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MFR Package Code" "1808"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mount" "表面贴装"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Operating Temperature" "-55 °C"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Tolerance" "10 %"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "packaging" "1000pcs"
+			(at 146.05 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "fd5d38f6-4416-4992-a726-1c11bfda3441")
+		)
+		(pin "1"
+			(uuid "08b57e75-efab-499e-ab3f-576f12661efd")
+		)
+		(instances
+			(project "HPM6P41_BB"
+				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/5ba70b1a-2680-42f0-98ce-27de27e994eb"
+					(reference "C104")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 97.79 96.52 90)
 		(unit 1)
@@ -12615,110 +12808,6 @@
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/5ba70b1a-2680-42f0-98ce-27de27e994eb"
 					(reference "U6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "SCC2211X102K502T:SCC2211X102K502T")
-		(at 146.05 162.56 90)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "4adbc725-9309-4d0f-8a5e-3fd29fc9529c")
-		(property "Reference" "C105"
-			(at 146.05 167.132 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SCC2211X102K502TG"
-			(at 146.05 165.354 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "kicad_community_lib:SCC2211X102K502T"
-			(at 146.05 162.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 146.05 162.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Safety Capacitors 2211 1nF ±10% 250V"
-			(at 146.05 162.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Mpn" "SCC2211X102K502T"
-			(at 146.05 162.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "IHHEC"
-			(at 146.05 162.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Mount" "表面贴装"
-			(at 146.05 162.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "10 %"
-			(at 146.05 162.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d6061fcb-3314-47ed-b969-41e535ee89d9")
-		)
-		(pin "2"
-			(uuid "8130b3f5-b80b-4c28-87ab-e633421d4682")
-		)
-		(instances
-			(project "HPM6P41_BB"
-				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/5ba70b1a-2680-42f0-98ce-27de27e994eb"
-					(reference "C105")
 					(unit 1)
 				)
 			)

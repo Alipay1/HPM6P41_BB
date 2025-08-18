@@ -1,0 +1,13 @@
+# Copyright (c) 2021-2024 HPMicro
+# SPDX-License-Identifier: BSD-3-Clause
+
+board:
+    soc: HPM6P81
+    device: HPM6E50xGNx
+    openocd-soc: hpm6p80-dual-core
+    openocd-probe: ft2232
+    on-board-flash:
+      type: qspi-nor-flash
+      size: 1M
+    feature:
+
