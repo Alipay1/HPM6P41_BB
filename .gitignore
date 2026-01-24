@@ -36,6 +36,7 @@ ibom.html
 *.pretty
 
 \out
+\dfm
 
 #software_example
 *flash_sdram_xip_debug

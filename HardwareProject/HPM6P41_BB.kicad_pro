@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.15,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.508
+          "min_clearance": 0.1524
         }
       },
       "diff_pair_dimensions": [
@@ -70,23 +70,23 @@
       ],
       "drc_exclusions": [
         [
-          "annular_width|81100000|94600000|d966433c-26ce-42c8-81aa-e254fd6f79cf|00000000-0000-0000-0000-000000000000",
+          "annular_width|170525000|89150000|d966433c-26ce-42c8-81aa-e254fd6f79cf|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
-          "hole_clearance|164800000|111330000|3b058418-3807-464c-af9a-6485ab36086e|36fa658e-b438-475c-84c5-f98ee84f9663",
+          "hole_clearance|152975000|111370000|3b058418-3807-464c-af9a-6485ab36086e|36fa658e-b438-475c-84c5-f98ee84f9663",
           ""
         ],
         [
-          "hole_clearance|164800000|111330000|3b058418-3807-464c-af9a-6485ab36086e|f032d84c-a643-4552-9229-03f915b4b56d",
+          "hole_clearance|152975000|111370000|3b058418-3807-464c-af9a-6485ab36086e|f032d84c-a643-4552-9229-03f915b4b56d",
           ""
         ],
         [
-          "hole_clearance|170600000|111330000|adc809e6-95ea-40e7-a99d-90ae2319bd5a|970a153e-2871-44b7-a685-0c54772a992d",
+          "hole_clearance|158775000|111370000|adc809e6-95ea-40e7-a99d-90ae2319bd5a|970a153e-2871-44b7-a685-0c54772a992d",
           ""
         ],
         [
-          "hole_clearance|170600000|111330000|adc809e6-95ea-40e7-a99d-90ae2319bd5a|fc8cc432-a4c6-46f7-8d64-08ebffb3075b",
+          "hole_clearance|158775000|111370000|adc809e6-95ea-40e7-a99d-90ae2319bd5a|fc8cc432-a4c6-46f7-8d64-08ebffb3075b",
           ""
         ]
       ],
@@ -503,6 +503,7 @@
       "single_global_label": "ignore",
       "unannotated": "error",
       "unconnected_wire_endpoint": "warning",
+      "undefined_netclass": "error",
       "unit_value_mismatch": "error",
       "unresolved_variable": "error",
       "wire_dangling": "error"
@@ -609,6 +610,12 @@
         "Default"
       ],
       "Net-(R57-Pad2)": [
+        "Default"
+      ],
+      "Net-(U12--)": [
+        "Default"
+      ],
+      "Net-(U13--)": [
         "Default"
       ],
       "Net-(U17-+)": [

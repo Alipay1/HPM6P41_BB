@@ -3548,7 +3548,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "05c85ee1-63e4-410c-85dd-70277bf52cf3")
-		(property "Reference" "U4"
+		(property "Reference" "U16"
 			(at 265.43 95.8849 0)
 			(effects
 				(font
@@ -3899,7 +3899,7 @@
 		(instances
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/4759a0c1-ad86-4fab-9152-87dbcf52a213"
-					(reference "U4")
+					(reference "U16")
 					(unit 5)
 				)
 			)
@@ -3915,7 +3915,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "428431cd-f814-4226-855d-303c8c5328ce")
-		(property "Reference" "#PWR035"
+		(property "Reference" "#PWR0196"
 			(at 33.02 45.72 0)
 			(effects
 				(font
@@ -3965,7 +3965,7 @@
 		(instances
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/4759a0c1-ad86-4fab-9152-87dbcf52a213"
-					(reference "#PWR035")
+					(reference "#PWR0196")
 					(unit 1)
 				)
 			)
@@ -3981,7 +3981,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bc432bf8-3833-4cca-a1f4-effaf7dfdee2")
-		(property "Reference" "#PWR036"
+		(property "Reference" "#PWR0197"
 			(at 33.02 55.88 0)
 			(effects
 				(font
@@ -4031,7 +4031,7 @@
 		(instances
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/4759a0c1-ad86-4fab-9152-87dbcf52a213"
-					(reference "#PWR036")
+					(reference "#PWR0197")
 					(unit 1)
 				)
 			)
@@ -4046,7 +4046,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c86a1035-3a62-4d8c-af35-184c8b123fa8")
-		(property "Reference" "C18"
+		(property "Reference" "C105"
 			(at 36.83 44.4499 0)
 			(effects
 				(font
@@ -4055,7 +4055,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100nF,10V"
+		(property "Value" "100nF,50V"
 			(at 36.83 46.9899 0)
 			(effects
 				(font
@@ -4100,7 +4100,7 @@
 		(instances
 			(project "HPM6P41_BB"
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/4759a0c1-ad86-4fab-9152-87dbcf52a213"
-					(reference "C18")
+					(reference "C105")
 					(unit 1)
 				)
 			)
