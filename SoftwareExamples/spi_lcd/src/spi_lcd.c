@@ -17,7 +17,9 @@ int main(void) {
   board_init_clock();
   SEGGER_RTT_ConfigUpBuffer(0, NULL, NULL, 0, SEGGER_RTT_MODE_NO_BLOCK_TRIM);
   board_print_clock_freq();
-  LOG("SDK_VERSION:%d.%d.%d\r\n", SDK_VERSION_MAJOR, SDK_VERSION_MINOR, SDK_PATCHLEVEL);
+#if defined (SDK_VERSION_STRING)
+  LOG("SDK_VERSION:%s\r\n", SDK_VERSION_STRING);
+#endif
   board_init_led_pins();
   board_init_btn();
   board_timer_create(LED1_FLASH_PERIOD_IN_MS, board_led0_toggle);
