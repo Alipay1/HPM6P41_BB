@@ -25,7 +25,7 @@
 
 static volatile uint32_t reload = 0;
 
-uint32_t pwm_calc_reload(uint32_t period_us) {
+uint32_t test_pwm_calc_reload(uint32_t period_us) {
   uint32_t t_reload, t_freq;
   t_freq   = clock_get_frequency(clock_ahb0);
   t_reload = t_freq / 1000 / 1000 * period_us - 1;
@@ -61,7 +61,7 @@ void board_pwm_set_duty_phase(double dutyh1, double dutyh2, double phase) {
 }
 
 void board_pwmv2_start_out(void) {
-  reload = pwm_calc_reload(5);
+  reload = test_pwm_calc_reload(5);
 
   pwmv2_deinit(HPM_PWM1);
 

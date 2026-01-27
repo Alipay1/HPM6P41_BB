@@ -36,7 +36,6 @@ void pwm_duty_test(void);
 void pwm_freq_test(void);
 void pwm_dead_test(void);
 void pwm_phase_test(void);
-void pwm_phase_test2(void);
 
 uint32_t a = 1, b = 4;
 
@@ -46,7 +45,7 @@ int main(void) {
   SEGGER_RTT_Init();
   SEGGER_RTT_ConfigUpBuffer(0, NULL, NULL, 0, SEGGER_RTT_MODE_NO_BLOCK_TRIM);
   board_print_clock_freq();
-  LOG("SDK_VERSION:%d.%d.%d\r\n", SDK_VERSION_MAJOR, SDK_VERSION_MINOR, SDK_PATCHLEVEL);
+  LOG("SDK_VERSION:%d.%d.%d\r\n", SDK_VERSION_STRING);
   board_init_led_pins();
   board_init_btn();
   board_timer_create(LED1_FLASH_PERIOD_IN_MS, board_led0_toggle);
@@ -196,33 +195,46 @@ void pwm_hrpwm_test(void) {
   //  }
   //}
 
-   #define IF_USE_HRPWM_HALFE_CYCLE true
-     // start test 5 loop
-     LOG("Start hrpwm test, should see 1us pulse width difference.\r\n");
-     for (int i = 0; i < 5; i++) {
-       pwmv2_shadow_register_unlock(HPM_PWM1);
-       pwmv2_set_shadow_val(HPM_PWM1, CMP1, 0, 0, false);
-       pwmv2_set_shadow_val(HPM_PWM1, CMP2, 15, 0, false);
-       pwmv2_shadow_register_lock(HPM_PWM1);
 
-      board_delay_ms(1000);
-
-      pwmv2_shadow_register_unlock(HPM_PWM1);
-      pwmv2_set_shadow_val(HPM_PWM1, CMP1, 0, 0, false);
-      pwmv2_set_shadow_val(HPM_PWM1, CMP2, 15, 0b01111111, false);
-      pwmv2_shadow_register_lock(HPM_PWM1);
-
-      board_delay_ms(1000);
-
-       pwmv2_shadow_register_unlock(HPM_PWM1);
-       pwmv2_set_shadow_val(HPM_PWM1, CMP1, 0, 0, false);
-       pwmv2_set_shadow_val(HPM_PWM1, CMP2, 15, 0b11111111, false);
-       pwmv2_shadow_register_lock(HPM_PWM1);
-
-      board_delay_ms(1000);
+   // 每轮测试2560ms，进行100轮测试
+   LOG("Start hrpwm test, should see 1us pulse width difference.\r\n");
+   for (int i = 0; i < 100; i++) {
+    for (uint8_t hr = 0; hr < UINT8_MAX; hr++) {
+     pwmv2_shadow_register_unlock(HPM_PWM1);
+     pwmv2_set_shadow_val(HPM_PWM1, CMP1, 0, 0, false);
+     pwmv2_set_shadow_val(HPM_PWM1, CMP2, 15, hr, false);
+     pwmv2_shadow_register_lock(HPM_PWM1);
+     board_delay_ms(10);
     }
-    LOG("Stop hrpwm test.\r\n");
-   #undef IF_USE_HRPWM_HALFE_CYCLE
+  }
+  LOG("Stop hrpwm test.\r\n");
+
+
+  // // start test 5 loop
+  // LOG("Start hrpwm test, should see 1us pulse width difference.\r\n");
+  // for (int i = 0; i < 5; i++) {
+  //   pwmv2_shadow_register_unlock(HPM_PWM1);
+  //   pwmv2_set_shadow_val(HPM_PWM1, CMP1, 0, 0, false);
+  //   pwmv2_set_shadow_val(HPM_PWM1, CMP2, 15, 0, false);
+  //   pwmv2_shadow_register_lock(HPM_PWM1);
+
+  //  board_delay_ms(1000);
+
+  //  pwmv2_shadow_register_unlock(HPM_PWM1);
+  //  pwmv2_set_shadow_val(HPM_PWM1, CMP1, 0, 0, false);
+  //  pwmv2_set_shadow_val(HPM_PWM1, CMP2, 15, 0b01111111, false);
+  //  pwmv2_shadow_register_lock(HPM_PWM1);
+
+  //  board_delay_ms(1000);
+
+  //   pwmv2_shadow_register_unlock(HPM_PWM1);
+  //   pwmv2_set_shadow_val(HPM_PWM1, CMP1, 0, 0, false);
+  //   pwmv2_set_shadow_val(HPM_PWM1, CMP2, 15, 0b11111111, false);
+  //   pwmv2_shadow_register_lock(HPM_PWM1);
+
+  //  board_delay_ms(1000);
+  //}
+  //LOG("Stop hrpwm test.\r\n");
 
   // disable output
   pwmv2_channel_disable_output(HPM_PWM1, pwm_channel_4);
@@ -547,18 +559,30 @@ void pwm_phase_test(void) {
 
   pwmv2_calculate_set_period_parameter(PWM, PWMV2_CALCULATE_INDEX(0), 0);
   pwmv2_calculate_set_dac_value_parameter(PWM, PWMV2_CALCULATE_INDEX(0), 0);
-  pwmv2_calculate_select_counter_calculate_index(PWM, PWMV2_CALCULATE_INDEX(0), PWM_PRIVATE_CLAC_2);
+  pwmv2_calculate_select_counter_calculate_index(PWM, PWMV2_CALCULATE_INDEX(0), pwm_counter_2);
   pwmv2_calculate_select_in_offset(PWM, PWMV2_CALCULATE_INDEX(0), PWMV2_SHADOW_INDEX(20));
   pwmv2_counter_update_trig0(PWM, pwm_counter_2, 2);
   pwmv2_counter_enable_update_trig0(PWM, pwm_counter_2);
   pwmv2_counter_set_trig0_calculate_cell_index(PWM, pwm_counter_2, PWMV2_CALCULATE_INDEX(0));
 
+
+  //参考手册UM p654通用计算单元内容
+  /*
+  PWMV2_CALCULATE_INDEX(1)      通用计算单元1
+  */
+  //设置 通用计算单元1 的pT为0（关闭CAL_T_INDEX输入）即关闭计数器重载值输入
   pwmv2_calculate_set_period_parameter(PWM, PWMV2_CALCULATE_INDEX(1), 0);
+  //同上，但设置pD为0（关闭CAL_IN_INDEX输入）
   pwmv2_calculate_set_dac_value_parameter(PWM, PWMV2_CALCULATE_INDEX(1), 0);
-  pwmv2_calculate_select_counter_calculate_index(PWM, PWMV2_CALCULATE_INDEX(1), PWM_PRIVATE_CLAC_3);
+  //设置 通用计算单元1 的输入为 PWM私有计数器3
+  pwmv2_calculate_select_counter_calculate_index(PWM, PWMV2_CALCULATE_INDEX(1), pwm_counter_3);
+  //设置 通用计算单元1 的 CAL_IN_OFF 为 PHASE（某个影子寄存器）
   pwmv2_calculate_select_in_offset(PWM, PWMV2_CALCULATE_INDEX(1), PHASE);
+  //设置 计数器更新外部触发源0 选择 3号触发源（即PWM6/7的同步输入） (参考手册UM p686 p658)
   pwmv2_counter_update_trig0(PWM, pwm_counter_3, 3);
+  //接续上一行，启用触发更新
   pwmv2_counter_enable_update_trig0(PWM, pwm_counter_3);
+  //更新触发时 计数器3 使用 通用计算单元1 的结果
   pwmv2_counter_set_trig0_calculate_cell_index(PWM, pwm_counter_3, PWMV2_CALCULATE_INDEX(1));
 
   pwmv2_shadow_register_lock(HPM_PWM1);
