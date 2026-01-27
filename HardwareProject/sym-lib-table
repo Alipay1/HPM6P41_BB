@@ -5,4 +5,5 @@
   (lib (name "SDCW2012-2-900TF")(type "KiCad")(uri "${KIPRJMOD}/hq_libs/SDCW2012-2-900TF.kicad_sym")(options "")(descr "由华秋在线符号添加"))
   (lib (name "SCC2211X102K502T")(type "KiCad")(uri "${KIPRJMOD}/hq_libs/SCC2211X102K502T.kicad_sym")(options "")(descr "由华秋在线符号添加"))
   (lib (name "SCC1808X102K502TS")(type "KiCad")(uri "${KIPRJMOD}/kicad_api_libs/SCC1808X102K502TS.kicad_sym")(options "Added by schematic API")(descr ""))
+  (lib (name "TPS628681ARQYR")(type "KiCad")(uri "${KIPRJMOD}/kicad_api_libs/TPS628681ARQYR.kicad_sym")(options "Added by KiCad IPC API")(descr ""))
 )
