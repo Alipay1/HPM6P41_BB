@@ -52,7 +52,12 @@ int main(void) {
   board_pwm_set_duty_phase(0.1,0.1,0);
 
   while (1) {
-    pwm_console_set();
+    //pwm_console_set();
+
+    for (int i=0; i<360; i++) {
+      board_pwm_set_duty_phase(0.1,0.1,i);
+      board_delay_ms(10);
+    }
   }
 }
 
@@ -75,15 +80,18 @@ void pwm_console_set(void) {
   LOG("Set period:\r\n");
   double period = get_key_ret_num(buf, ARRAY_SIZE(buf));
 
-  LOG("Set dutye:\r\n");
-  double duty = get_key_ret_num(buf, ARRAY_SIZE(buf));
+  LOG("Set duty1:\r\n");
+  double duty1 = get_key_ret_num(buf, ARRAY_SIZE(buf));
+
+  LOG("Set duty2:\r\n");
+  double duty2 = get_key_ret_num(buf, ARRAY_SIZE(buf));
 
   LOG("Set phase:\r\n");
   double phase = get_key_ret_num(buf, ARRAY_SIZE(buf));
 
   board_pwm_set_reload(period);
-  board_pwm_set_duty_phase(duty,duty, phase);
+  board_pwm_set_duty_phase(duty1, duty2, phase);
 
-  LOG("Parameters set to %lf %lf %lf\r\n",period, duty, phase);
-  LOG("pwm_calc_reload:%ld\r\n",board_pwm_calc_reload(period));
+  LOG("Parameters set to %lf %lf %lf %lf\r\n",period, duty1, duty2, phase);
+  LOG("pwm_calc_reload:%u\r\n",board_pwm_calc_reload(period));
 }

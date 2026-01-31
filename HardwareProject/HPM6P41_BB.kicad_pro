@@ -70,23 +70,23 @@
       ],
       "drc_exclusions": [
         [
-          "annular_width|170525000|89150000|d966433c-26ce-42c8-81aa-e254fd6f79cf|00000000-0000-0000-0000-000000000000",
+          "annular_width|81100000|94600000|d966433c-26ce-42c8-81aa-e254fd6f79cf|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
-          "hole_clearance|152975000|111370000|3b058418-3807-464c-af9a-6485ab36086e|36fa658e-b438-475c-84c5-f98ee84f9663",
+          "hole_clearance|164800000|111330000|3b058418-3807-464c-af9a-6485ab36086e|36fa658e-b438-475c-84c5-f98ee84f9663",
           ""
         ],
         [
-          "hole_clearance|152975000|111370000|3b058418-3807-464c-af9a-6485ab36086e|f032d84c-a643-4552-9229-03f915b4b56d",
+          "hole_clearance|164800000|111330000|3b058418-3807-464c-af9a-6485ab36086e|f032d84c-a643-4552-9229-03f915b4b56d",
           ""
         ],
         [
-          "hole_clearance|158775000|111370000|adc809e6-95ea-40e7-a99d-90ae2319bd5a|970a153e-2871-44b7-a685-0c54772a992d",
+          "hole_clearance|170600000|111330000|adc809e6-95ea-40e7-a99d-90ae2319bd5a|970a153e-2871-44b7-a685-0c54772a992d",
           ""
         ],
         [
-          "hole_clearance|158775000|111370000|adc809e6-95ea-40e7-a99d-90ae2319bd5a|fc8cc432-a4c6-46f7-8d64-08ebffb3075b",
+          "hole_clearance|170600000|111330000|adc809e6-95ea-40e7-a99d-90ae2319bd5a|fc8cc432-a4c6-46f7-8d64-08ebffb3075b",
           ""
         ]
       ],
@@ -178,7 +178,7 @@
           "td_onpthpad": true,
           "td_onroundshapesonly": false,
           "td_onsmdpad": true,
-          "td_ontrackend": true,
+          "td_ontrackend": false,
           "td_onvia": true
         }
       ],
@@ -511,9 +511,7 @@
   },
   "libraries": {
     "pinned_footprint_libs": [
-      "HPM6P41_BB",
-      "kicad_community_lib",
-      "kicad_api_lib"
+      "HPM6P41_BB"
     ],
     "pinned_symbol_libs": []
   },
@@ -543,25 +541,13 @@
       },
       {
         "clearance": 0.508,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "10mil3W",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 0,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.254,
-        "via_diameter": 0.5,
-        "via_drill": 0.3
-      },
-      {
-        "clearance": 0.508,
         "diff_pair_gap": 4.0,
         "diff_pair_width": 8.0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "USB_DATA",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 1,
+        "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 8.0,
         "via_diameter": 0.5,
@@ -572,68 +558,7 @@
       "version": 4
     },
     "net_colors": null,
-    "netclass_assignments": {
-      "/BB/InputVsense+": [
-        "Default"
-      ],
-      "/BB/OutputVsense+": [
-        "Default"
-      ],
-      "/MCU_MISC/485_DE_ISO": [
-        "Default"
-      ],
-      "/MCU_MISC/485_RX_ISO": [
-        "Default"
-      ],
-      "/MCU_MISC/485_TX_ISO": [
-        "Default"
-      ],
-      "/MCU_MISC/CAN_RXD_ISO": [
-        "Default"
-      ],
-      "/MCU_MISC/CAN_STBY_ISO": [
-        "Default"
-      ],
-      "/MCU_MISC/CAN_TXD_ISO": [
-        "Default"
-      ],
-      "/PD8": [
-        "Default"
-      ],
-      "GND": [
-        "Default"
-      ],
-      "GNDA": [
-        "Default"
-      ],
-      "Net-(R56-Pad2)": [
-        "Default"
-      ],
-      "Net-(R57-Pad2)": [
-        "Default"
-      ],
-      "Net-(U12--)": [
-        "Default"
-      ],
-      "Net-(U13--)": [
-        "Default"
-      ],
-      "Net-(U17-+)": [
-        "Default"
-      ],
-      "Net-(U17--)": [
-        "Default"
-      ],
-      "Net-(U20-+)": [
-        "Default"
-      ],
-      "Net-(U20--)": [
-        "Default"
-      ],
-      "VANA": [
-        "Default"
-      ]
-    },
+    "netclass_assignments": null,
     "netclass_patterns": [
       {
         "netclass": "Default",
@@ -647,7 +572,7 @@
       "idf": "",
       "netlist": "",
       "plot": "./out",
-      "pos_files": "./out/smt",
+      "pos_files": "",
       "specctra_dsn": "",
       "step": "HPM6P41_BB.step",
       "svg": "",
@@ -719,98 +644,14 @@
           "label": "Datasheet",
           "name": "Datasheet",
           "show": true
-        },
-        {
-          "group_by": false,
-          "label": "Company",
-          "name": "Company",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "Input Voltage",
-          "name": "Input Voltage",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "JLC_3DModel_Q",
-          "name": "JLC_3DModel_Q",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "JLC_3D_Size",
-          "name": "JLC_3D_Size",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "Manufacturer",
-          "name": "Manufacturer",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "Model",
-          "name": "Model",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "Mount",
-          "name": "Mount",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "Mpn",
-          "name": "Mpn",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "Sim.Device",
-          "name": "Sim.Device",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "Sim.Pins",
-          "name": "Sim.Pins",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "型号",
-          "name": "型号",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "ASSY_OPT",
-          "name": "ASSY_OPT",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "描述",
-          "name": "Description",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "#",
-          "name": "${ITEM_NUMBER}",
-          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
       "include_excluded_from_bom": true,
-      "name": "",
+      "name": "Default Editing",
       "sort_asc": true,
-      "sort_field": "Reference"
+      "sort_field": "位号"
     },
     "connection_grid_size": 50.0,
     "drawing": {
