@@ -1,7 +1,5 @@
 add_subdirectory(./drivers)
 
-set(CONFIG_HPM_I2C 1)
-
 sdk_inc(.)
 sdk_src(pinmux.c)
 sdk_src(board.c)

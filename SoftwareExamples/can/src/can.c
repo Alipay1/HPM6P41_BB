@@ -24,11 +24,7 @@ static volatile mcan_rx_message_t s_can_rx_buf;
 static volatile mcan_tx_event_fifo_elem_t s_can_tx_evt;
 
 int main(void) {
-  board_init_pmp();
-  board_init_clock();
-  SEGGER_RTT_ConfigUpBuffer(0, NULL, NULL, 0, SEGGER_RTT_MODE_NO_BLOCK_TRIM);
-  board_print_clock_freq();
-  LOG("SDK_VERSION:%s\r\n", SDK_VERSION_STRING);
+  board_init();
   board_init_led_pins();
   board_init_btn();
   board_timer_create(LED1_FLASH_PERIOD_IN_MS, board_led0_toggle);
@@ -48,7 +44,7 @@ CAN_TEST_START:
   assert(status == status_success);
   bool result = can_loopback_test(BOARD_APP_CAN_BASE, false);
   mcan_deinit(BOARD_APP_CAN_BASE);
-  printf("    CAN1 blocking CAN2.0 loopback test %s\n", result ? "PASSED" : "FAILED");
+  printf("    CAN1 blocking CAN2.0 loopback test %s\n", result ? "\x1B[24;42mPASSED\x1B[0m" : "\x1B[24;41mFAILED\x1B[0m");
 
   mcan_get_default_config(BOARD_APP_CAN_BASE, &can_config);
   can_config.enable_canfd = true;
@@ -59,7 +55,7 @@ CAN_TEST_START:
   (void)status; /* Suppress compiling warning in release build */
   result = can_loopback_test(BOARD_APP_CAN_BASE, true);
   mcan_deinit(BOARD_APP_CAN_BASE);
-  printf("    CAN1 blocking CANFD loopback test %s\n", result ? "PASSED" : "FAILED");
+  printf("    CAN1 blocking CANFD loopback test %s\n", result ? "\x1B[24;42mPASSED\x1B[0m" : "\x1B[24;41mFAILED\x1B[0m");
 
   mcan_get_default_config(BOARD_APP_CAN_BASE, &can_config);
   can_config.mode = mcan_mode_loopback_external;
@@ -73,7 +69,7 @@ CAN_TEST_START:
   intc_m_enable_irq_with_priority(BOARD_APP_CAN_IRQn, 1);
   can_send_test(0x114);
   mcan_deinit(BOARD_APP_CAN_BASE);
-  printf("    CAN1 interrupt CAN2.0 loopback test %s\n", has_sent_out & rxfifo0_event_occurred ? "PASSED" : "FAILED");
+  printf("    CAN1 interrupt CAN2.0 loopback test %s\n", has_sent_out & rxfifo0_event_occurred ? "\x1B[24;42mPASSED\x1B[0m" : "\x1B[24;41mFAILED\x1B[0m");
   has_sent_out           = false;
   rxfifo0_event_occurred = false;
 
@@ -90,7 +86,7 @@ CAN_TEST_START:
   intc_m_enable_irq_with_priority(BOARD_APP_CAN_IRQn, 1);
   can_send_test(0x514);
   mcan_deinit(BOARD_APP_CAN_BASE);
-  printf("    CAN1 interrupt CANFD loopback test %s\n", has_sent_out & rxfifo0_event_occurred ? "PASSED" : "FAILED");
+  printf("    CAN1 interrupt CANFD loopback test %s\n", has_sent_out & rxfifo0_event_occurred ? "\x1B[24;42mPASSED\x1B[0m" : "\x1B[24;41mFAILED\x1B[0m");
   has_sent_out           = false;
   rxfifo0_event_occurred = false;
 
@@ -213,7 +209,7 @@ bool can_loopback_test(MCAN_Type *base, bool enable_canfd) {
   if (!result) {
     error_cnt++;
   }
-  printf("    CAN loopback test for standard frame %s\n", result ? "passed" : "failed");
+  printf("    CAN loopback test for standard frame %s\n", result ? "\x1B[24;42mPASSED\x1B[0m" : "\x1B[24;41mFAILED\x1B[0m");
 
   /* Test Transmission and Reception of Extended Frame */
   tx_buf.use_ext_id = 1U;
@@ -226,7 +222,7 @@ bool can_loopback_test(MCAN_Type *base, bool enable_canfd) {
   if (!result) {
     error_cnt++;
   }
-  printf("    CAN loopback test for extend frame %s\n", result ? "passed" : "failed");
+  printf("    CAN loopback test for extend frame %s\n", result ? "\x1B[24;42mPASSED\x1B[0m" : "\x1B[24;41mFAILED\x1B[0m");
 
   return (error_cnt < 1);
 }

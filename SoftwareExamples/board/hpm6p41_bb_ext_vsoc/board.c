@@ -182,6 +182,7 @@ void board_init(void)
 #if BOARD_SHOW_BANNER
     board_print_banner();
 #endif
+    board_delay_ms(10);
 }
 
 void board_delay_us(uint32_t us)
