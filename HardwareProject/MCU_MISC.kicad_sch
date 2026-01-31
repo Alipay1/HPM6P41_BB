@@ -9579,7 +9579,7 @@
 	)
 	(hierarchical_label "485_RX"
 		(shape output)
-		(at 133.35 116.84 180)
+		(at 133.35 119.38 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9591,7 +9591,7 @@
 	)
 	(hierarchical_label "CAN_TXD"
 		(shape input)
-		(at 133.35 111.76 180)
+		(at 133.35 106.68 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9603,7 +9603,7 @@
 	)
 	(hierarchical_label "485_DE"
 		(shape input)
-		(at 133.35 106.68 180)
+		(at 133.35 111.76 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9615,7 +9615,7 @@
 	)
 	(hierarchical_label "CAN_RXD"
 		(shape output)
-		(at 133.35 119.38 180)
+		(at 133.35 116.84 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9627,7 +9627,7 @@
 	)
 	(hierarchical_label "485_TX"
 		(shape input)
-		(at 133.35 109.22 180)
+		(at 133.35 114.3 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9661,7 +9661,7 @@
 	)
 	(hierarchical_label "CAN_STBY"
 		(shape input)
-		(at 133.35 114.3 180)
+		(at 133.35 109.22 180)
 		(effects
 			(font
 				(size 1.27 1.27)
