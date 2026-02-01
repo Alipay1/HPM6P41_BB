@@ -406,8 +406,8 @@ void board_init_clock(void)
 void board_clock_full_speed(void){
     board_syr838_reg_i2c_context(board_get_i2c_context());
     syr838_set_vout_uv(1375000);
-    /* Set CPU clock to 800MHz */
-    clock_set_source_divider(clock_cpu0, clk_src_pll1_clk0, 1);
+    //clock_set_source_divider(clock_cpu0, clk_src_pll1_clk0, 1);    /* Set CPU clock to 800MHz */
+    clock_set_source_divider(clock_cpu0, clk_src_pll0_clk0, 1);    /* Set CPU clock to 600MHz */
     LOG("cpu0 ramp up to:\t : %u\r\n", clock_get_frequency(clock_i2c0));
 }
 

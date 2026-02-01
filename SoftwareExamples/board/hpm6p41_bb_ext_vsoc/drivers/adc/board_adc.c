@@ -5,10 +5,10 @@
 
 #include "def_rtt_printf.h"
 
-#define CHANNEL_INPUT_V_SENSE 8
-#define CHANNEL_INPUT_I_SENSE 9
-#define CHANNEL_OUTPUT_I_SENSE 6
-#define CHANNEL_OUTPUT_V_SENSE 7
+#define CHANNEL_VIN   6
+#define CHANNEL_IPK   7
+#define CHANNEL_IAVGE 8
+#define CHANNEL_VOUT  9
 
 ATTR_PLACE_AT_NONCACHEABLE_WITH_ALIGNMENT(ADC_SOC_DMA_ADDR_ALIGNMENT)
 adc16_pmt_dma_data_t adc0_pmt_buff[ADC_SOC_PMT_MAX_DMA_BUFF_LEN_IN_4BYTES];
@@ -69,7 +69,7 @@ void board_adc_init(void) {
   adc16_get_default_config(&cfg);
   cfg.res          = adc16_res_16_bits;
   cfg.conv_mode    = adc16_conv_mode_preemption;
-  cfg.adc_clk_div  = adc16_clock_divider_4;
+  cfg.adc_clk_div  = adc16_clock_divider_2;
   cfg.sel_sync_ahb = true;
   cfg.adc_ahb_en   = true;
   adc16_init(HPM_ADC0, &cfg);
@@ -77,43 +77,43 @@ void board_adc_init(void) {
 
   // 配置各通道
   adc16_get_channel_default_config(&ch_cfg);
-  sample_cycle = clock_get_frequency(clock_adc0) / adc16_clock_divider_4 / 500000 / 2;
+  sample_cycle = clock_get_frequency(clock_adc0) / adc16_clock_divider_2 / 500000 - 5;
   LOG("sample_cycle:%u\r\n", sample_cycle);
 
   // 电压采样 ADC0
-  ch_cfg.ch           = CHANNEL_OUTPUT_I_SENSE;
+  ch_cfg.ch           = CHANNEL_VIN;
   ch_cfg.sample_cycle = sample_cycle;
   adc16_init_channel(HPM_ADC0, &ch_cfg);
-  ch_cfg.ch           = CHANNEL_OUTPUT_V_SENSE;
+  ch_cfg.ch           = CHANNEL_VOUT;
   ch_cfg.sample_cycle = sample_cycle;
   adc16_init_channel(HPM_ADC0, &ch_cfg);
 
   // 电压采样 ADC1
-  ch_cfg.ch           = CHANNEL_INPUT_I_SENSE;
+  ch_cfg.ch           = CHANNEL_IPK;
   ch_cfg.sample_cycle = sample_cycle;
   adc16_init_channel(HPM_ADC1, &ch_cfg);
-  ch_cfg.ch           = CHANNEL_INPUT_V_SENSE;
+  ch_cfg.ch           = CHANNEL_IAVGE;
   ch_cfg.sample_cycle = sample_cycle;
   adc16_init_channel(HPM_ADC1, &ch_cfg);
 
-  pmt_cfg.adc_ch[0] = CHANNEL_OUTPUT_I_SENSE;
-  pmt_cfg.adc_ch[1] = CHANNEL_OUTPUT_V_SENSE;
+  pmt_cfg.adc_ch[0] = CHANNEL_VIN;
+  pmt_cfg.adc_ch[1] = CHANNEL_VOUT;
   pmt_cfg.inten[0]  = false;
   pmt_cfg.inten[1]  = true;
   pmt_cfg.trig_ch   = ADC16_CONFIG_TRG0A;
   pmt_cfg.trig_len  = 2;
-  adc16_enable_pmt_queue(HPM_ADC0, CHANNEL_OUTPUT_I_SENSE);
-  adc16_enable_pmt_queue(HPM_ADC0, CHANNEL_OUTPUT_V_SENSE);
+  adc16_enable_pmt_queue(HPM_ADC0, CHANNEL_VIN);
+  adc16_enable_pmt_queue(HPM_ADC0, CHANNEL_VOUT);
   adc16_set_pmt_config(HPM_ADC0, &pmt_cfg);
 
-  pmt_cfg.adc_ch[0] = CHANNEL_INPUT_I_SENSE;
-  pmt_cfg.adc_ch[1] = CHANNEL_INPUT_V_SENSE;
+  pmt_cfg.adc_ch[0] = CHANNEL_IPK;
+  pmt_cfg.adc_ch[1] = CHANNEL_IAVGE;
   pmt_cfg.inten[0]  = false;
   pmt_cfg.inten[1]  = true;
   pmt_cfg.trig_ch   = ADC16_CONFIG_TRG0A;
   pmt_cfg.trig_len  = 2;
-  adc16_enable_pmt_queue(HPM_ADC1, CHANNEL_INPUT_I_SENSE);
-  adc16_enable_pmt_queue(HPM_ADC1, CHANNEL_INPUT_V_SENSE);
+  adc16_enable_pmt_queue(HPM_ADC1, CHANNEL_IPK);
+  adc16_enable_pmt_queue(HPM_ADC1, CHANNEL_IAVGE);
   adc16_set_pmt_config(HPM_ADC1, &pmt_cfg);
 
   trgm_output_cfg.invert = false;
@@ -124,7 +124,7 @@ void board_adc_init(void) {
   trgm_output_cfg.invert = false;
   trgm_output_cfg.type   = trgm_output_pulse_at_input_rising_edge;
   trgm_output_cfg.input  = HPM_TRGM0_INPUT_SRC_PWM1_TRGO_1;
-  trgm_output_config(HPM_TRGM0, HPM_TRGM0_OUTPUT_SRC_ADCX_PTRGI0A, &trgm_output_cfg);
+  trgm_output_config(HPM_TRGM0, HPM_TRGM0_OUTPUT_SRC_ADCX_PTRGI1A, &trgm_output_cfg);
 
   adc16_set_pmt_queue_enable(HPM_ADC0, ADC16_CONFIG_TRG0A, true);
   adc16_set_pmt_queue_enable(HPM_ADC1, ADC16_CONFIG_TRG0A, true);
