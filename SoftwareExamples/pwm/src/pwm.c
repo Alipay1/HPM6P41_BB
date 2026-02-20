@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "board_pwmv2.h"
+
 #include "hpm_pwmv2_drv.h"
 #include "hpm_synt_drv.h"
 #include "hpm_trgm_drv.h"
@@ -198,7 +200,7 @@ void pwm_hrpwm_test(void) {
 
    // 每轮测试2560ms，进行100轮测试
    LOG("Start hrpwm test, should see 1us pulse width difference.\r\n");
-   for (int i = 0; i < 100; i++) {
+   for (int i = 0; i < 10; i++) {
     for (uint8_t hr = 0; hr < UINT8_MAX; hr++) {
      pwmv2_shadow_register_unlock(HPM_PWM1);
      pwmv2_set_shadow_val(HPM_PWM1, CMP1, 0, 0, false);

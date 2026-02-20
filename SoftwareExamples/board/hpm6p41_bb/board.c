@@ -19,6 +19,7 @@
 #include "hpm_spi_drv.h"
 #include "hpm_mcan_drv.h"
 
+#include "SEGGER_RTT.h"
 #include "def_rtt_printf.h"
 
 /**
@@ -111,6 +112,7 @@ void board_init_console(void)
         ;
 #endif
 #endif
+  //SEGGER_RTT_Init();
 }
 
 void board_print_clock_freq(void)

@@ -1,4 +1,5 @@
 #include "board_adc.h"
+#include "board.h"
 
 #include "hpm_clock_drv.h"
 #include "hpm_trgm_drv.h"
@@ -77,7 +78,7 @@ void board_adc_init(void) {
 
   // 配置各通道
   adc16_get_channel_default_config(&ch_cfg);
-  sample_cycle = clock_get_frequency(clock_adc0) / adc16_clock_divider_2 / 500000 - 5;
+  sample_cycle = clock_get_frequency(clock_adc0) / adc16_clock_divider_2 / 500000 / 2 - 5;
   LOG("sample_cycle:%u\r\n", sample_cycle);
 
   // 电压采样 ADC0
@@ -132,23 +133,23 @@ void board_adc_init(void) {
   adc16_init_pmt_dma(HPM_ADC0, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc0_pmt_buff));
   adc16_init_pmt_dma(HPM_ADC1, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc1_pmt_buff));
 
-  intc_m_enable_irq_with_priority(IRQn_ADC0, 7);
-   intc_m_enable_irq_with_priority(IRQn_ADC1, 7);
+  intc_m_enable_irq_with_priority(IRQn_ADC0, 1);
+   //intc_m_enable_irq_with_priority(IRQn_ADC1, 7);
   adc16_enable_interrupts(HPM_ADC0, adc16_event_trig_complete);
-   adc16_enable_interrupts(HPM_ADC1, adc16_event_trig_complete);
+   //adc16_enable_interrupts(HPM_ADC1, adc16_event_trig_complete);
 }
 
-double get_input_current(void) {
+double get_vin(void) {
+  return (double)get_adc0_buf()[0].result / UINT16_MAX * 3.0 / 5.1 * (120 + 5.1);
+};
+double get_vout(void) {
+  return (double)get_adc0_buf()[1].result / UINT16_MAX * 3.0 / 5.1 * (120 + 5.1);
+};
+double get_ipeak(void) {
   return ((double)get_adc1_buf()[0].result / UINT16_MAX * 3.0 - 1.5) / 50 / 0.001;
 };
-double get_input_voltage(void) {
-  return (double)get_adc1_buf()[1].result / UINT16_MAX * 3.0 / 5.1 * (120 + 5.1);
-};
-double get_output_current(void) {
-  return ((double)get_adc0_buf()[0].result / UINT16_MAX * 3.0 - 1.5) / 50 / 0.001;
-};
-double get_output_voltage(void) {
-  return (double)get_adc0_buf()[1].result / UINT16_MAX * 3.0 / 5.1 * (120 + 5.1);
+double get_iavg(void) {
+  return ((double)get_adc1_buf()[1].result / UINT16_MAX * 3.0 - 1.5) / 50 / 0.001;
 };
 
 ATTR_WEAK void adc0_conv_done_cb(void) {};

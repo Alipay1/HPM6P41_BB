@@ -197,8 +197,8 @@ void board_pwmv2_start_out(void) {
   pwmv2_shadow_register_lock(HPM_PWM1);
 
   // set dead zone
-  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_4, 0x7);
-  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_5, 0x7);
+  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_4, 0x4F);
+  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_5, 0x4F);
   pwmv2_set_dead_area(HPM_PWM1, pwm_channel_6, 0x7);
   pwmv2_set_dead_area(HPM_PWM1, pwm_channel_7, 0x7);
   pwmv2_add_delay_tick_after_dead_area(HPM_PWM1, 0);
@@ -216,7 +216,7 @@ void board_pwmv2_start_out(void) {
   pwmv2_start_pwm_output_sync(HPM_PWM1, (1 << pwm_counter_2 | 1 << pwm_counter_3));
   pwmv2_enable_counter(HPM_PWM1, pwm_counter_2);
   board_delay_us(1);
-  pwmv2_enable_counter(HPM_PWM1, pwm_counter_3);//pwmv2_enable_multi_counter_sync(HPM_PWM1, (1 << pwm_counter_2 | 1 << pwm_counter_3));
+  //pwmv2_enable_counter(HPM_PWM1, pwm_counter_3);//pwmv2_enable_multi_counter_sync(HPM_PWM1, (1 << pwm_counter_2 | 1 << pwm_counter_3));
 
   // set synt to sync 2 counters (this can only set initial phase)
   synt_reset_counter(HPM_SYNT);

@@ -17,7 +17,7 @@ int main(void)
     board_init();
     board_init_led_pins();
 
-    board_timer_create(LED_FLASH_PERIOD_IN_MS, board_led_toggle);
+    board_timer_create(LED_FLASH_PERIOD_IN_MS, board_led0_toggle);
 
     printf("hello world\n");
     while(1)
@@ -27,6 +27,7 @@ int main(void)
             u = '\n';
         }
         printf("%c", u);
+        //printf("%x\n", getchar());
     }
     return 0;
 }

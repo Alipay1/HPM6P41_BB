@@ -62,7 +62,7 @@ void board_pwm_set_duty_phase(double dutyh1, double dutyh2, double phase) {
 }
 
 void board_pwmv2_start_out(void) {
-  reload = board_pwm_calc_reload(5);
+  reload = board_pwm_calc_reload(4);
 
   pwmv2_deinit(HPM_PWM1);
 
@@ -196,12 +196,14 @@ void board_pwmv2_start_out(void) {
 
   pwmv2_shadow_register_lock(HPM_PWM1);
 
+  #define DEAD_ZONE 0x3F
   // set dead zone
-  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_4, 0x7);
-  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_5, 0x7);
-  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_6, 0x7);
-  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_7, 0x7);
+  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_4, DEAD_ZONE);
+  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_5, DEAD_ZONE);
+  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_6, DEAD_ZONE);
+  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_7, DEAD_ZONE);
   pwmv2_add_delay_tick_after_dead_area(HPM_PWM1, 0);
+  #undef  DEAD_ZONE
 
   ////反转右侧桥臂输出极性
   //pwmv2_enable_output_invert(HPM_PWM1, pwm_channel_6);

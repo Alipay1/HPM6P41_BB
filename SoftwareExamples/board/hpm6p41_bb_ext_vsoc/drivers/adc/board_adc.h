@@ -16,10 +16,10 @@ bool get_adc1_conv_stat(void);
 void clr_adc0_conv_stat(void);
 void clr_adc1_conv_stat(void);
 
-double get_input_current(void);
-double get_input_voltage(void);
-double get_output_current(void);
-double get_output_voltage(void);
+double get_ipeak(void);
+double get_iavg(void);
+double get_vin(void);
+double get_vout(void);
 
 #if defined(__cplusplus)
 }

@@ -171,7 +171,8 @@ void board_init(void)
 
 #if CONFIG_NDEBUG_CONSOLE
     SEGGER_RTT_Init();
-    SEGGER_RTT_ConfigUpBuffer(0, "RTT_UP", NULL, 0, SEGGER_RTT_MODE_NO_BLOCK_TRIM);
+    SEGGER_RTT_ConfigUpBuffer(0, "RTT_UP", NULL, 0, SEGGER_RTT_MODE_NO_BLOCK_SKIP);
+    SEGGER_RTT_ConfigDownBuffer(0, "RTT_DN", NULL, 0, SEGGER_RTT_MODE_NO_BLOCK_SKIP);
 #endif
 
     board_init_pmp();
@@ -355,6 +356,13 @@ void board_init_clock(void)
         /* select clock setting preset1 */
         sysctl_clock_set_preset(HPM_SYSCTL, 2);
     }
+    
+    pcfg_dcdc_set_mode(HPM_PCFG, pcfg_dcdc_mode_off);
+    pcfg_dcdc_set_voltage(HPM_PCFG, 0);
+
+    /* Set CPU clock to 300MHz */
+    clock_set_source_divider(clock_cpu0, clk_src_pll0_clk0, 2);
+
     /* Add Clocks to group 0 */
     clock_add_to_group(clock_cpu0, 0);
     clock_add_to_group(clock_mchtmr0, 0);
@@ -390,12 +398,6 @@ void board_init_clock(void)
     /* Connect Group0 to CPU0 */
     clock_connect_group_to_cpu(0, 0);
 
-    /* Bump up DCDC voltage to 1275mv */
-    pcfg_dcdc_set_mode(HPM_PCFG, pcfg_dcdc_mode_off);
-    pcfg_dcdc_set_voltage(HPM_PCFG, 0);
-
-    /* Set CPU clock to 300MHz */
-    clock_set_source_divider(clock_cpu0, clk_src_pll0_clk0, 2);
 
     /* Configure mchtmr to 24MHz */
     clock_set_source_divider(clock_mchtmr0, clk_src_osc24m, 1);
@@ -406,9 +408,11 @@ void board_init_clock(void)
 void board_clock_full_speed(void){
     board_syr838_reg_i2c_context(board_get_i2c_context());
     syr838_set_vout_uv(1375000);
+    board_delay_ms(30);
     //clock_set_source_divider(clock_cpu0, clk_src_pll1_clk0, 1);    /* Set CPU clock to 800MHz */
     clock_set_source_divider(clock_cpu0, clk_src_pll0_clk0, 1);    /* Set CPU clock to 600MHz */
-    LOG("cpu0 ramp up to:\t : %u\r\n", clock_get_frequency(clock_i2c0));
+    board_delay_ms(30);
+    LOG("cpu0 ramp up to:\t : %u\r\n", clock_get_frequency(clock_cpu0));
 }
 
 uint32_t board_init_uart_clock(UART_Type *ptr)

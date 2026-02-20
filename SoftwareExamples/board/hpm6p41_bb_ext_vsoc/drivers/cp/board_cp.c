@@ -10,7 +10,7 @@
 #define CMP4_CP PWMV2_SHADOW_INDEX(4)
 
 void board_charge_pump_init(void) {
-  uint32_t reload = pwm_calc_reload(10);
+  uint32_t reload = board_pwm_calc_reload(10);
 
   pwmv2_deinit(HPM_PWM2);
 

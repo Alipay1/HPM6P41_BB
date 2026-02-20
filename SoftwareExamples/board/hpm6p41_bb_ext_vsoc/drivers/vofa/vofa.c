@@ -38,11 +38,11 @@ extern int usbd_ep_start_write(uint8_t busid, const uint8_t ep, const uint8_t *d
   vofa_frame_cnt++;
 
   if (vofa_frame_cnt == VOFA_BUF_CNT) {
-    ep_tx_busy_flag = true;
+    while (ep_tx_busy_flag)
+      ;
     usbd_ep_start_write(0, CDC_IN_EP, (uint8_t *)frame_ptr, sizeof(cdc_frame_0));
     vofa_frame_sel = !vofa_frame_sel;    // 切换
     vofa_frame_cnt = 0;
-    while (ep_tx_busy_flag)
-      ;
+    ep_tx_busy_flag = true;
   }
 }

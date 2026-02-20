@@ -129,13 +129,13 @@ void board_adc_init(void) {
   adc16_set_pmt_queue_enable(HPM_ADC0, ADC16_CONFIG_TRG0A, true);
   adc16_set_pmt_queue_enable(HPM_ADC1, ADC16_CONFIG_TRG0A, true);
 
-  adc16_init_pmt_dma(HPM_ADC0, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc0_pmt_buff));
-  adc16_init_pmt_dma(HPM_ADC1, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc1_pmt_buff));
+  //adc16_init_pmt_dma(HPM_ADC0, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc0_pmt_buff));
+  //adc16_init_pmt_dma(HPM_ADC1, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc1_pmt_buff));
 
-  intc_m_enable_irq_with_priority(IRQn_ADC0, 7);
-   intc_m_enable_irq_with_priority(IRQn_ADC1, 7);
-  adc16_enable_interrupts(HPM_ADC0, adc16_event_trig_complete);
-   adc16_enable_interrupts(HPM_ADC1, adc16_event_trig_complete);
+  //intc_m_enable_irq_with_priority(IRQn_ADC0, 7);
+  // intc_m_enable_irq_with_priority(IRQn_ADC1, 7);
+  //adc16_enable_interrupts(HPM_ADC0, adc16_event_trig_complete);
+  // adc16_enable_interrupts(HPM_ADC1, adc16_event_trig_complete);
 }
 
 double get_input_current(void) {
@@ -154,8 +154,8 @@ double get_output_voltage(void) {
 ATTR_WEAK void adc0_conv_done_cb(void) {};
 ATTR_WEAK void adc1_conv_done_cb(void) {};
 
-  #include "hpm_mchtmr_drv.h"
-  SDK_DECLARE_EXT_ISR_M(IRQn_ADC0, isr_adc0)
+#include "hpm_mchtmr_drv.h"
+SDK_DECLARE_EXT_ISR_M(IRQn_ADC0, isr_adc0)
 void isr_adc0(void) {
   uint32_t status;
   static uint32_t prc = 0;

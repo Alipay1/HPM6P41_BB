@@ -5655,12 +5655,6 @@
 		(uuid "21761917-efc2-44ca-80a2-86b0ff51f423")
 	)
 	(junction
-		(at 77.47 29.21)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "229b6aba-056b-4e84-bca3-582465a0dc9e")
-	)
-	(junction
 		(at 158.75 140.97)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5967,7 +5961,7 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 26.67) (xy 77.47 29.21)
+			(xy 77.47 26.67) (xy 77.47 31.75)
 		)
 		(stroke
 			(width 0)
@@ -6054,16 +6048,6 @@
 			(type default)
 		)
 		(uuid "29588e06-adee-435a-873a-60a5bfff8bd2")
-	)
-	(wire
-		(pts
-			(xy 88.9 29.21) (xy 77.47 29.21)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "298d3921-e617-482f-959e-26ded1e2a67e")
 	)
 	(wire
 		(pts
@@ -6739,16 +6723,6 @@
 			(type default)
 		)
 		(uuid "f00401b8-0b50-43b2-b5c1-76cee82afdbf")
-	)
-	(wire
-		(pts
-			(xy 77.47 29.21) (xy 77.47 31.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f29122b7-f0ab-45ab-83e5-fa84632ecb45")
 	)
 	(wire
 		(pts
@@ -12207,72 +12181,6 @@
 			(project ""
 				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/8753c7ec-cb46-4092-8be3-4a324384953b"
 					(reference "C78")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:VBUS")
-		(at 88.9 29.21 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f1f7b27e-942d-4d96-ac93-99bdde516776")
-		(property "Reference" "#PWR0155"
-			(at 88.9 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VBUS"
-			(at 88.9 24.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 88.9 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 88.9 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VBUS\""
-			(at 88.9 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5e34c90f-4afc-4a7e-8740-ef75a2d400ff")
-		)
-		(instances
-			(project "HPM6P41_BB"
-				(path "/714b8a30-f9a7-49d4-a000-bc20c4884c7a/8753c7ec-cb46-4092-8be3-4a324384953b"
-					(reference "#PWR0155")
 					(unit 1)
 				)
 			)

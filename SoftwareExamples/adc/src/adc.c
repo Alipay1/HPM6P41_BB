@@ -44,7 +44,7 @@ vofa_frame *vofa_ptr = NULL;
 
 int main(void) {
   board_init();
-  board_clock_full_speed();
+  //board_clock_full_speed();
   board_init_usb((USB_Type *)HPM_USB0_BASE);
   intc_set_irq_priority(IRQn_USB0, 1);
   cdc_acm_init(0, HPM_USB0_BASE);
