@@ -32,31 +32,38 @@ extern void cdc_acm_data_send_with_dtr_test(uint8_t busid);
 vofa_frame *vofa_ptr = NULL;
 
 #define FSBB_VOUT_TARGET_V (12.0f)
-#define FSBB_DUTY_MIN (0.10f)
-#define FSBB_DUTY_MAX (0.90f)
-#define FSBB_DUTY_STARTUP (0.50f)
+#define FSBB_H1_MIN (0.05f)
+#define FSBB_H1_MAX (0.92f)
+#define FSBB_H1_STARTUP (0.20f)
+#define FSBB_H2_MIN (0.0f)
+#define FSBB_H2_MAX (0.55f)
+#define FSBB_H2_STARTUP (0.0f)
 #define FSBB_VIN_MIN_ENABLE_V (2.0f)
 #define FSBB_CONTROL_DECIMATION (100U)
 #define FSBB_FILTER_ALPHA (0.02f)
 #define FSBB_KP (0.0015f)
 #define FSBB_KI (0.000015f)
 #define FSBB_INTEGRATOR_LIMIT (0.10f)
-#define FSBB_DUTY_SLEW_PER_UPDATE (0.0005f)
+#define FSBB_H1_SLEW_PER_UPDATE (0.0005f)
+#define FSBB_H2_SLEW_PER_UPDATE (0.0002f)
 
 typedef struct {
   float vin;
   float vout;
   float iin;
   float iout;
-  float duty;
+  float h1_buck_duty;
+  float h2_boost_duty;
   float integrator;
   float error;
+  float demand_ratio;
   uint32_t decimation;
   bool filter_ready;
 } fsbb_control_t;
 
 static fsbb_control_t fsbb = {
-    .duty = FSBB_DUTY_STARTUP,
+    .h1_buck_duty = FSBB_H1_STARTUP,
+    .h2_boost_duty = FSBB_H2_STARTUP,
 };
 
 static float clampf(float value, float min, float max) {
@@ -81,21 +88,25 @@ static float slew_limit(float target, float current, float max_step) {
   return target;
 }
 
-static void fsbb_apply_duty(float duty) {
-  duty = clampf(duty, FSBB_DUTY_MIN, FSBB_DUTY_MAX);
-  fsbb.duty = duty;
+static void fsbb_apply_bridge(float h1_buck_duty, float h2_boost_duty) {
+  h1_buck_duty = clampf(h1_buck_duty, FSBB_H1_MIN, FSBB_H1_MAX);
+  h2_boost_duty = clampf(h2_boost_duty, FSBB_H2_MIN, FSBB_H2_MAX);
+  fsbb.h1_buck_duty = h1_buck_duty;
+  fsbb.h2_boost_duty = h2_boost_duty;
 
-  /* Pure FSBB: left high-side duty is D, right high-side duty is 1-D. */
-  board_pwm_set_duty_phase(duty, 1.0f - duty, 0.0f);
+  /* H1 is the buck leg, H2 is the boost leg. Keep the original H1-based phase. */
+  board_pwm_set_duty_phase(h1_buck_duty, h2_boost_duty, h1_buck_duty * 180.0f);
 }
 
 static void fsbb_control_init(void) {
-  fsbb.duty = FSBB_DUTY_STARTUP;
+  fsbb.h1_buck_duty = FSBB_H1_STARTUP;
+  fsbb.h2_boost_duty = FSBB_H2_STARTUP;
   fsbb.integrator = 0.0f;
   fsbb.error = 0.0f;
+  fsbb.demand_ratio = 0.0f;
   fsbb.decimation = 0;
   fsbb.filter_ready = false;
-  fsbb_apply_duty(fsbb.duty);
+  fsbb_apply_bridge(fsbb.h1_buck_duty, fsbb.h2_boost_duty);
 }
 
 static void fsbb_control_update(void) {
@@ -126,7 +137,10 @@ static void fsbb_control_update(void) {
   if (fsbb.vin < FSBB_VIN_MIN_ENABLE_V) {
     fsbb.integrator = 0.0f;
     fsbb.error = 0.0f;
-    fsbb_apply_duty(slew_limit(FSBB_DUTY_STARTUP, fsbb.duty, FSBB_DUTY_SLEW_PER_UPDATE));
+    fsbb.demand_ratio = 0.0f;
+    float safe_h1 = slew_limit(FSBB_H1_STARTUP, fsbb.h1_buck_duty, FSBB_H1_SLEW_PER_UPDATE);
+    float safe_h2 = slew_limit(FSBB_H2_STARTUP, fsbb.h2_boost_duty, FSBB_H2_SLEW_PER_UPDATE);
+    fsbb_apply_bridge(safe_h1, safe_h2);
     return;
   }
 
@@ -135,14 +149,30 @@ static void fsbb_control_update(void) {
   fsbb.integrator = clampf(fsbb.integrator, -FSBB_INTEGRATOR_LIMIT, FSBB_INTEGRATOR_LIMIT);
 
   /*
-   * Ideal non-inverting buck-boost feed-forward:
-   * Vout/Vin = D/(1-D), so D = Vout_ref / (Vin + Vout_ref).
-   * The PI term is intentionally small and slew-limited for low bandwidth.
+   * Non-inverting FSBB relation:
+   * Vout / Vin = H1 / (1 - H2), where H1 is the buck leg and H2 is the boost leg.
+   * Stay buck-only while H1 can regulate; only raise H2 after H1 reaches its limit.
    */
-  float feedforward = FSBB_VOUT_TARGET_V / (fsbb.vin + FSBB_VOUT_TARGET_V);
-  float demand = feedforward + FSBB_KP * fsbb.error + fsbb.integrator;
-  float limited = clampf(demand, FSBB_DUTY_MIN, FSBB_DUTY_MAX);
-  fsbb_apply_duty(slew_limit(limited, fsbb.duty, FSBB_DUTY_SLEW_PER_UPDATE));
+  float max_ratio = FSBB_H1_MAX / (1.0f - FSBB_H2_MAX);
+  float demand_ratio = FSBB_VOUT_TARGET_V / fsbb.vin + FSBB_KP * fsbb.error + fsbb.integrator;
+  float target_h1;
+  float target_h2;
+
+  fsbb.demand_ratio = clampf(demand_ratio, FSBB_H1_MIN, max_ratio);
+  if (fsbb.demand_ratio <= FSBB_H1_MAX) {
+    target_h1 = fsbb.demand_ratio;
+    target_h2 = FSBB_H2_MIN;
+  } else {
+    target_h1 = FSBB_H1_MAX;
+    target_h2 = 1.0f - FSBB_H1_MAX / fsbb.demand_ratio;
+  }
+
+  target_h1 = clampf(target_h1, FSBB_H1_MIN, FSBB_H1_MAX);
+  target_h2 = clampf(target_h2, FSBB_H2_MIN, FSBB_H2_MAX);
+
+  float next_h1 = slew_limit(target_h1, fsbb.h1_buck_duty, FSBB_H1_SLEW_PER_UPDATE);
+  float next_h2 = slew_limit(target_h2, fsbb.h2_boost_duty, FSBB_H2_SLEW_PER_UPDATE);
+  fsbb_apply_bridge(next_h1, next_h2);
 }
 
 void send_something(void){
@@ -158,10 +188,11 @@ void send_something(void){
     vofa_ptr->fdata[1] = fsbb.vout;
     vofa_ptr->fdata[2] = fsbb.iin;
     vofa_ptr->fdata[3] = fsbb.iout;
-    vofa_ptr->fdata[4] = fsbb.duty;
-    vofa_ptr->fdata[5] = 1.0f - fsbb.duty;
+    vofa_ptr->fdata[4] = fsbb.h1_buck_duty;
+    vofa_ptr->fdata[5] = fsbb.h2_boost_duty;
     vofa_ptr->fdata[6] = FSBB_VOUT_TARGET_V;
     vofa_ptr->fdata[7] = fsbb.error;
+    vofa_ptr->fdata[8] = fsbb.demand_ratio;
     vofa_send_frame();
 }
 
