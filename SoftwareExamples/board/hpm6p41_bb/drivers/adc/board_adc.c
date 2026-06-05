@@ -1,9 +1,13 @@
 #include "board_adc.h"
+#include "board.h"
 
 #include "hpm_clock_drv.h"
 #include "hpm_trgm_drv.h"
 
 #include "def_rtt_printf.h"
+
+#include "hpm_soc_irq.h"
+#include "hpm_interrupt.h"
 
 #define CHANNEL_INPUT_V_SENSE 8
 #define CHANNEL_INPUT_I_SENSE 9
@@ -129,12 +133,12 @@ void board_adc_init(void) {
   adc16_set_pmt_queue_enable(HPM_ADC0, ADC16_CONFIG_TRG0A, true);
   adc16_set_pmt_queue_enable(HPM_ADC1, ADC16_CONFIG_TRG0A, true);
 
-  //adc16_init_pmt_dma(HPM_ADC0, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc0_pmt_buff));
-  //adc16_init_pmt_dma(HPM_ADC1, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc1_pmt_buff));
+  adc16_init_pmt_dma(HPM_ADC0, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc0_pmt_buff));
+  adc16_init_pmt_dma(HPM_ADC1, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc1_pmt_buff));
 
-  //intc_m_enable_irq_with_priority(IRQn_ADC0, 7);
+  intc_m_enable_irq_with_priority(IRQn_ADC0, 7);
   // intc_m_enable_irq_with_priority(IRQn_ADC1, 7);
-  //adc16_enable_interrupts(HPM_ADC0, adc16_event_trig_complete);
+  adc16_enable_interrupts(HPM_ADC0, adc16_event_trig_complete);
   // adc16_enable_interrupts(HPM_ADC1, adc16_event_trig_complete);
 }
 
@@ -154,14 +158,11 @@ double get_output_voltage(void) {
 ATTR_WEAK void adc0_conv_done_cb(void) {};
 ATTR_WEAK void adc1_conv_done_cb(void) {};
 
-#include "hpm_mchtmr_drv.h"
-SDK_DECLARE_EXT_ISR_M(IRQn_ADC0, isr_adc0)
+SDK_DECLARE_EXT_ISR_M(IRQn_ADC0, isr_adc0);
 void isr_adc0(void) {
   uint32_t status;
   static uint32_t prc = 0;
 
-  uint64_t tick_start = mchtmr_get_count(HPM_MCHTMR);
-  uint64_t tick_period;
   status = adc16_get_status_flags(HPM_ADC0);
   adc16_clear_status_flags(HPM_ADC0, status);
 
@@ -170,14 +171,13 @@ void isr_adc0(void) {
     if (prc >= 4) {
       adc0_trig_conv_done = 1;
       adc0_conv_done_cb();
-      board_led2_toggle();
+      //board_led2_toggle();
       prc = 0;
-  tick_period = mchtmr_get_count(HPM_MCHTMR) - tick_start;
-  //LOG("TE:%llu\r\n",tick_period);
     }
   }
 }
-SDK_DECLARE_EXT_ISR_M(IRQn_ADC1, isr_adc1)
+
+SDK_DECLARE_EXT_ISR_M(IRQn_ADC1, isr_adc1);
 void isr_adc1(void) {
   uint32_t status;
 

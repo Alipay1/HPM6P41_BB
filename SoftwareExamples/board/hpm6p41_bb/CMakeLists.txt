@@ -1,6 +1,7 @@
 add_subdirectory(./drivers)
 
 sdk_inc(.)
+sdk_inc(./drivers)
 sdk_src(pinmux.c)
 sdk_src(board.c)
 

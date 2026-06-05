@@ -6,6 +6,20 @@ set(CONFIG_CHERRYUSB 1)
 set(CONFIG_USB_DEVICE 1)
 set(CONFIG_USB_DEVICE_CDC_ACM 1)
 
+
+# the following lines before "### END ###" are added during project localization
+### START ###
+set(ENV{HPM_SDK_BASE} "${CMAKE_CURRENT_SOURCE_DIR}/hpm_sdk_localized_for_hpm6p41_bb")
+set(LOCALIZED_BOARD "hpm6p41_bb")
+if(BOARD)
+  if(NOT ${BOARD} MATCHES ${LOCALIZED_BOARD})
+    message(FATAL_ERROR "ABORT:\n hpm sdk has been localized for ${LOCALIZED_BOARD} already.")
+  endif()
+endif()
+set(BOARD ${LOCALIZED_BOARD})
+### END ###
+
+
 find_package(hpm-sdk REQUIRED HINTS $ENV{HPM_SDK_BASE})
 
 project(chopper)
