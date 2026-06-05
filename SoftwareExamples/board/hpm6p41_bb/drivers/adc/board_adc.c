@@ -136,9 +136,13 @@ void board_adc_init(void) {
   adc16_init_pmt_dma(HPM_ADC0, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc0_pmt_buff));
   adc16_init_pmt_dma(HPM_ADC1, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc1_pmt_buff));
 
-  intc_m_enable_irq_with_priority(IRQn_ADC0, 7);
+  /*
+   * Keep PWM-triggered PMT DMA running, but do not enable trigger-complete IRQs here.
+   * At a 5 us PWM period this interrupt can reach 200 kHz and starve USB/CDC handling.
+   */
+  // intc_m_enable_irq_with_priority(IRQn_ADC0, 7);
   // intc_m_enable_irq_with_priority(IRQn_ADC1, 7);
-  adc16_enable_interrupts(HPM_ADC0, adc16_event_trig_complete);
+  // adc16_enable_interrupts(HPM_ADC0, adc16_event_trig_complete);
   // adc16_enable_interrupts(HPM_ADC1, adc16_event_trig_complete);
 }
 

@@ -39,6 +39,7 @@ vofa_frame *vofa_ptr = NULL;
 #define FSBB_H2_MAX (0.55f)
 #define FSBB_H2_STARTUP (0.0f)
 #define FSBB_VIN_MIN_ENABLE_V (2.0f)
+#define FSBB_SAMPLE_PERIOD_MS (1U)
 #define FSBB_CONTROL_DECIMATION (100U)
 #define FSBB_FILTER_ALPHA (0.02f)
 #define FSBB_KP (0.0015f)
@@ -176,10 +177,7 @@ static void fsbb_control_update(void) {
 }
 
 void send_something(void){
-    /* Wait for a complete of conversion */
-    while (get_adc0_conv_stat() == 0)
-      ;
-    clr_adc0_conv_stat();
+    /* ADC PMT DMA is updated by the PWM trigger chain; poll the latest buffer at a low rate. */
     fsbb_control_update();
 
     /* Process data */
@@ -223,5 +221,6 @@ int main(void) {
     //  board_delay_ms(10);
     //}
     send_something();
+    board_delay_ms(FSBB_SAMPLE_PERIOD_MS);
   }
 }
