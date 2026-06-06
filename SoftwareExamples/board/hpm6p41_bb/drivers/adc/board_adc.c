@@ -112,8 +112,6 @@ void board_adc_init(void) {
   pmt_cfg.inten[1]  = true;
   pmt_cfg.trig_ch   = ADC16_CONFIG_TRG0A;
   pmt_cfg.trig_len  = 2;
-  adc16_enable_pmt_queue(HPM_ADC0, CHANNEL_OUTPUT_I_SENSE);
-  adc16_enable_pmt_queue(HPM_ADC0, CHANNEL_OUTPUT_V_SENSE);
   adc16_set_pmt_config(HPM_ADC0, &pmt_cfg);
 
   pmt_cfg.adc_ch[0] = CHANNEL_INPUT_I_SENSE;
@@ -122,18 +120,17 @@ void board_adc_init(void) {
   pmt_cfg.inten[1]  = true;
   pmt_cfg.trig_ch   = ADC16_CONFIG_TRG0A;
   pmt_cfg.trig_len  = 2;
-  adc16_enable_pmt_queue(HPM_ADC1, CHANNEL_INPUT_I_SENSE);
-  adc16_enable_pmt_queue(HPM_ADC1, CHANNEL_INPUT_V_SENSE);
   adc16_set_pmt_config(HPM_ADC1, &pmt_cfg);
 
+  /*
+   * Use PWM1_TRGO_0 as the ADC PMT trigger source.
+   * In buck-only mode only H1/counter2 is active; PWM1_TRGO_1 belongs to the H2/counter3 side
+   * and will not fire while the faulty boost leg is parked. Configuring ADCX_PTRGI0A twice
+   * overwrites the first source, so keep a single route here.
+   */
   trgm_output_cfg.invert = false;
   trgm_output_cfg.type   = trgm_output_pulse_at_input_rising_edge;
   trgm_output_cfg.input  = HPM_TRGM0_INPUT_SRC_PWM1_TRGO_0;
-  trgm_output_config(HPM_TRGM0, HPM_TRGM0_OUTPUT_SRC_ADCX_PTRGI0A, &trgm_output_cfg);
-
-  trgm_output_cfg.invert = false;
-  trgm_output_cfg.type   = trgm_output_pulse_at_input_rising_edge;
-  trgm_output_cfg.input  = HPM_TRGM0_INPUT_SRC_PWM1_TRGO_1;
   trgm_output_config(HPM_TRGM0, HPM_TRGM0_OUTPUT_SRC_ADCX_PTRGI0A, &trgm_output_cfg);
 
   adc16_set_pmt_queue_enable(HPM_ADC0, ADC16_CONFIG_TRG0A, true);
@@ -181,7 +178,7 @@ void isr_adc0(void) {
     if (prc >= ADC0_CONV_DONE_DECIMATION) {
       adc0_trig_conv_done = 1;
       adc0_conv_done_cb();
-      //board_led2_toggle();
+      board_led2_toggle();
       prc = 0;
     }
   }
