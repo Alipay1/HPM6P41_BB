@@ -38,6 +38,7 @@ vofa_frame *vofa_ptr = NULL;
 #define FSBB_H2_MIN (0.0f)
 #define FSBB_H2_MAX (0.55f)
 #define FSBB_H2_STARTUP (0.0f)
+#define FSBB_H2_PARK_DUTY (0.0f)
 #define FSBB_VIN_MIN_ENABLE_V (2.0f)
 #define FSBB_SAMPLE_PERIOD_MS (1U)
 /* Main loop samples ADC DMA at 1 kHz; control updates every 100 samples, about 10 Hz. */
@@ -96,19 +97,22 @@ static void fsbb_apply_bridge(float h1_buck_duty, float h2_boost_duty) {
   fsbb.h1_buck_duty = h1_buck_duty;
   fsbb.h2_boost_duty = h2_boost_duty;
 
-  /* H1 is the buck leg, H2 is the boost leg. Keep the original H1-based phase. */
+  /*
+   * H1 is the buck leg and remains under closed-loop control.
+   * H2 is the faulty boost leg; keep it parked and do not let the loop command boost action.
+   */
   board_pwm_set_duty_phase(h1_buck_duty, h2_boost_duty, h1_buck_duty * 180.0f);
 }
 
 static void fsbb_control_init(void) {
   fsbb.h1_buck_duty = FSBB_H1_STARTUP;
-  fsbb.h2_boost_duty = FSBB_H2_STARTUP;
+  fsbb.h2_boost_duty = FSBB_H2_PARK_DUTY;
   fsbb.integrator = 0.0f;
   fsbb.error = 0.0f;
   fsbb.demand_ratio = 0.0f;
   fsbb.decimation = 0;
   fsbb.filter_ready = false;
-  fsbb_apply_bridge(fsbb.h1_buck_duty, fsbb.h2_boost_duty);
+  fsbb_apply_bridge(fsbb.h1_buck_duty, FSBB_H2_PARK_DUTY);
 }
 
 static void fsbb_control_update(void) {
@@ -141,8 +145,7 @@ static void fsbb_control_update(void) {
     fsbb.error = 0.0f;
     fsbb.demand_ratio = 0.0f;
     float safe_h1 = slew_limit(FSBB_H1_STARTUP, fsbb.h1_buck_duty, FSBB_H1_SLEW_PER_UPDATE);
-    float safe_h2 = slew_limit(FSBB_H2_STARTUP, fsbb.h2_boost_duty, FSBB_H2_SLEW_PER_UPDATE);
-    fsbb_apply_bridge(safe_h1, safe_h2);
+    fsbb_apply_bridge(safe_h1, FSBB_H2_PARK_DUTY);
     return;
   }
 
@@ -151,30 +154,18 @@ static void fsbb_control_update(void) {
   fsbb.integrator = clampf(fsbb.integrator, -FSBB_INTEGRATOR_LIMIT, FSBB_INTEGRATOR_LIMIT);
 
   /*
-   * Non-inverting FSBB relation:
-   * Vout / Vin = H1 / (1 - H2), where H1 is the buck leg and H2 is the boost leg.
-   * Stay buck-only while H1 can regulate; only raise H2 after H1 reaches its limit.
+   * Temporary synchronous buck mode:
+   * - H1 controls the buck leg with the low-side switch driven complementarily by PWM hardware.
+   * - H2 is parked because the boost bridge has a hardware fault.
+   * - Buck cannot raise Vout above Vin, so the command simply saturates at H1_MAX when Vin is low.
+   * The loop remains deliberately slow: 1 kHz ADC polling, 10 Hz duty update, and small slew steps.
    */
-  float max_ratio = FSBB_H1_MAX / (1.0f - FSBB_H2_MAX);
   float demand_ratio = FSBB_VOUT_TARGET_V / fsbb.vin + FSBB_KP * fsbb.error + fsbb.integrator;
-  float target_h1;
-  float target_h2;
+  float target_h1 = clampf(demand_ratio, FSBB_H1_MIN, FSBB_H1_MAX);
 
-  fsbb.demand_ratio = clampf(demand_ratio, FSBB_H1_MIN, max_ratio);
-  if (fsbb.demand_ratio <= FSBB_H1_MAX) {
-    target_h1 = fsbb.demand_ratio;
-    target_h2 = FSBB_H2_MIN;
-  } else {
-    target_h1 = FSBB_H1_MAX;
-    target_h2 = 1.0f - FSBB_H1_MAX / fsbb.demand_ratio;
-  }
-
-  target_h1 = clampf(target_h1, FSBB_H1_MIN, FSBB_H1_MAX);
-  target_h2 = clampf(target_h2, FSBB_H2_MIN, FSBB_H2_MAX);
-
+  fsbb.demand_ratio = demand_ratio;
   float next_h1 = slew_limit(target_h1, fsbb.h1_buck_duty, FSBB_H1_SLEW_PER_UPDATE);
-  float next_h2 = slew_limit(target_h2, fsbb.h2_boost_duty, FSBB_H2_SLEW_PER_UPDATE);
-  fsbb_apply_bridge(next_h1, next_h2);
+  fsbb_apply_bridge(next_h1, FSBB_H2_PARK_DUTY);
 }
 
 void send_something(void){

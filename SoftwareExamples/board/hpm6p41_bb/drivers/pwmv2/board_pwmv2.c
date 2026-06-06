@@ -31,6 +31,7 @@
  */
 #define FSBB_PWM_PERIOD_US (20U)
 #define FSBB_PWM_DEAD_TIME_TICKS (0xA0U)
+#define FSBB_ENABLE_BOOST_LEG_OUTPUT (0)
 
 static volatile uint32_t reload = 0;
 
@@ -216,11 +217,13 @@ void board_pwmv2_start_out(void) {
   //pwmv2_enable_output_invert(HPM_PWM1, pwm_channel_6);
   //pwmv2_enable_output_invert(HPM_PWM1, pwm_channel_7);
 
-  // start output
+  // Start H1 buck-leg outputs. H2 boost-leg outputs stay disabled while that bridge is faulty.
   pwmv2_channel_enable_output(HPM_PWM1, pwm_channel_4);
   pwmv2_channel_enable_output(HPM_PWM1, pwm_channel_5);
+#if FSBB_ENABLE_BOOST_LEG_OUTPUT
   pwmv2_channel_enable_output(HPM_PWM1, pwm_channel_6);
   pwmv2_channel_enable_output(HPM_PWM1, pwm_channel_7);
+#endif
   pwmv2_reset_multi_counter_sync(HPM_PWM1, (1 << pwm_counter_2 | 1 << pwm_counter_3));
   pwmv2_start_pwm_output_sync(HPM_PWM1, (1 << pwm_counter_2 | 1 << pwm_counter_3));
   pwmv2_enable_counter(HPM_PWM1, pwm_counter_2);
