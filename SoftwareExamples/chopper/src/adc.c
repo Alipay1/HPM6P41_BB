@@ -44,15 +44,18 @@ vofa_frame *vofa_ptr = NULL;
 #define FSBB_VOFA_DECIMATION (20U)
 /*
  * ADC0 PMT completion interrupt is divided down in board_adc.c and calls the
- * control update at about 50 Hz. Keep this decimation at 1 here; the ISR divider
+ * control update at about 1 kHz. Keep this decimation at 1 here; the ISR divider
  * is the closed-loop time base.
  */
 #define FSBB_CONTROL_DECIMATION (1U)
-#define FSBB_FILTER_ALPHA (0.05f)
-#define FSBB_KP (0.0200f)
-#define FSBB_KI (0.00080f)
-#define FSBB_INTEGRATOR_LIMIT (0.40f)
-#define FSBB_H1_SLEW_PER_UPDATE (0.0050f)
+#define FSBB_FILTER_ALPHA (0.12f)
+#define FSBB_KP_UP (0.0300f)
+#define FSBB_KP_DOWN (0.0550f)
+#define FSBB_KI_UP (0.00045f)
+#define FSBB_KI_DOWN (0.00120f)
+#define FSBB_INTEGRATOR_LIMIT (0.30f)
+#define FSBB_H1_SLEW_UP_PER_UPDATE (0.0020f)
+#define FSBB_H1_SLEW_DOWN_PER_UPDATE (0.0120f)
 #define FSBB_H2_SLEW_PER_UPDATE (0.0002f)
 
 typedef struct {
@@ -85,14 +88,14 @@ static float clampf(float value, float min, float max) {
   return value;
 }
 
-static float slew_limit(float target, float current, float max_step) {
+static float slew_limit(float target, float current, float max_step_up, float max_step_down) {
   float delta = target - current;
 
-  if (delta > max_step) {
-    return current + max_step;
+  if (delta > max_step_up) {
+    return current + max_step_up;
   }
-  if (delta < -max_step) {
-    return current - max_step;
+  if (delta < -max_step_down) {
+    return current - max_step_down;
   }
   return target;
 }
@@ -151,13 +154,17 @@ static void fsbb_control_update(void) {
     fsbb.integrator = 0.0f;
     fsbb.error = 0.0f;
     fsbb.demand_ratio = 0.0f;
-    float safe_h1 = slew_limit(FSBB_H1_STARTUP, fsbb.h1_buck_duty, FSBB_H1_SLEW_PER_UPDATE);
+    float safe_h1 = slew_limit(FSBB_H1_STARTUP, fsbb.h1_buck_duty,
+                               FSBB_H1_SLEW_UP_PER_UPDATE,
+                               FSBB_H1_SLEW_DOWN_PER_UPDATE);
     fsbb_apply_bridge(safe_h1, FSBB_H2_PARK_DUTY);
     return;
   }
 
   fsbb.error = FSBB_VOUT_TARGET_V - fsbb.vout;
-  fsbb.integrator += FSBB_KI * fsbb.error;
+  float kp = fsbb.error < 0.0f ? FSBB_KP_DOWN : FSBB_KP_UP;
+  float ki = fsbb.error < 0.0f ? FSBB_KI_DOWN : FSBB_KI_UP;
+  fsbb.integrator += ki * fsbb.error;
   fsbb.integrator = clampf(fsbb.integrator, -FSBB_INTEGRATOR_LIMIT, FSBB_INTEGRATOR_LIMIT);
 
   /*
@@ -165,13 +172,17 @@ static void fsbb_control_update(void) {
    * - H1 controls the buck leg with the low-side switch driven complementarily by PWM hardware.
    * - H2 is parked because the boost bridge has a hardware fault.
    * - Buck cannot raise Vout above Vin, so the command simply saturates at H1_MAX when Vin is low.
-   * The loop remains deliberately gentle: 1 kHz ADC polling, 50 Hz duty update, and limited slew.
+   * The loop runs from the divided ADC interrupt at 1 kHz. Falling output is
+   * naturally slower than charging the output capacitor, so negative error uses
+   * stronger PI action and a faster duty-down slew.
    */
-  float demand_ratio = FSBB_VOUT_TARGET_V / fsbb.vin + FSBB_KP * fsbb.error + fsbb.integrator;
+  float demand_ratio = FSBB_VOUT_TARGET_V / fsbb.vin + kp * fsbb.error + fsbb.integrator;
   float target_h1 = clampf(demand_ratio, FSBB_H1_MIN, FSBB_H1_MAX);
 
   fsbb.demand_ratio = target_h1;
-  float next_h1 = slew_limit(target_h1, fsbb.h1_buck_duty, FSBB_H1_SLEW_PER_UPDATE);
+  float next_h1 = slew_limit(target_h1, fsbb.h1_buck_duty,
+                             FSBB_H1_SLEW_UP_PER_UPDATE,
+                             FSBB_H1_SLEW_DOWN_PER_UPDATE);
   fsbb_apply_bridge(next_h1, FSBB_H2_PARK_DUTY);
   fsbb.update_count++;
 }
@@ -232,6 +243,5 @@ int main(void) {
       vofa_decimation = 0;
       send_something();
     }
-    board_delay_ms(FSBB_SAMPLE_PERIOD_MS);
   }
 }

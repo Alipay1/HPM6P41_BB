@@ -253,23 +253,23 @@ void board_pwmv2_start_out(void) {
    IOC_PAD_PAD_CTL_DS_SET(7) | IOC_PAD_PAD_CTL_OD_SET(0) | IOC_PAD_PAD_CTL_KE_SET(0) | IOC_PAD_PAD_CTL_SR_SET(1) |
    IOC_PAD_PAD_CTL_SPD_SET(3);
 
-  // trgm_output_t trgm0_io_config0 = {0};
-  // trgm0_io_config0.invert = 0;
-  // trgm0_io_config0.type = trgm_output_same_as_input;
-  // trgm0_io_config0.input = HPM_TRGM0_INPUT_SRC_PWM1_TRGO_0;
-  // trgm_output_config(HPM_TRGM0, HPM_TRGM0_OUTPUT_SRC_TRGM0_P31, &trgm0_io_config0);
+   trgm_output_t trgm0_io_config0 = {0};
+   trgm0_io_config0.invert = 0;
+   trgm0_io_config0.type = trgm_output_same_as_input;
+   trgm0_io_config0.input = HPM_TRGM0_INPUT_SRC_PWM1_TRGO_0;
+   trgm_output_config(HPM_TRGM0, HPM_TRGM0_OUTPUT_SRC_TRGM0_P31, &trgm0_io_config0);
 
-  // trgm_enable_io_output(HPM_TRGM0, 1 << 31);
-
-  // trgm_output_t trgm0_io_config1 = {0};
-  // trgm0_io_config1.invert = 0;
-  // trgm0_io_config1.type = trgm_output_same_as_input;
-  // trgm0_io_config1.input = HPM_TRGM0_INPUT_SRC_PWM1_TRGO_1;
-  // trgm_output_config(HPM_TRGM0, HPM_TRGM0_OUTPUT_SRC_TRGM0_P30, &trgm0_io_config1);
-
-  // trgm_enable_io_output(HPM_TRGM0, 1 << 30);
+   trgm_enable_io_output(HPM_TRGM0, 1 << 31);
 
    trgm_output_t trgm0_io_config1 = {0};
+   trgm0_io_config1.invert = 0;
+   trgm0_io_config1.type = trgm_output_same_as_input;
+   trgm0_io_config1.input = HPM_TRGM0_INPUT_SRC_PWM1_TRGO_1;
+   trgm_output_config(HPM_TRGM0, HPM_TRGM0_OUTPUT_SRC_TRGM0_P30, &trgm0_io_config1);
+
+   trgm_enable_io_output(HPM_TRGM0, 1 << 30);
+
+   //trgm_output_t trgm0_io_config1 = {0};
    trgm0_io_config1.invert = 0;
    trgm0_io_config1.type = trgm_output_same_as_input;
    trgm0_io_config1.input = HPM_TRGM0_INPUT_SRC_SYNT_CH00;

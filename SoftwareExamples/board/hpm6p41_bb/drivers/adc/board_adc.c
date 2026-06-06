@@ -15,10 +15,10 @@
 #define CHANNEL_OUTPUT_V_SENSE 7
 
 /*
- * ADC0 PMT completion follows the PWM trigger. At 200 kHz PWM, divide by 4000
- * so the application callback runs at about 50 Hz.
+ * ADC0 PMT completion follows the PWM trigger. At 200 kHz PWM, divide by 200
+ * so the application callback runs at about 1 kHz.
  */
-#define ADC0_CONV_DONE_DECIMATION (4000U)
+#define ADC0_CONV_DONE_DECIMATION (200U)
 
 ATTR_PLACE_AT_NONCACHEABLE_WITH_ALIGNMENT(ADC_SOC_DMA_ADDR_ALIGNMENT)
 adc16_pmt_dma_data_t adc0_pmt_buff[ADC_SOC_PMT_MAX_DMA_BUFF_LEN_IN_4BYTES];
