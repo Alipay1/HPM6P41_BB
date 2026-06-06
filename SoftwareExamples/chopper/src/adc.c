@@ -40,6 +40,7 @@ vofa_frame *vofa_ptr = NULL;
 #define FSBB_H2_STARTUP (0.0f)
 #define FSBB_VIN_MIN_ENABLE_V (2.0f)
 #define FSBB_SAMPLE_PERIOD_MS (1U)
+/* Main loop samples ADC DMA at 1 kHz; control updates every 100 samples, about 10 Hz. */
 #define FSBB_CONTROL_DECIMATION (100U)
 #define FSBB_FILTER_ALPHA (0.02f)
 #define FSBB_KP (0.0015f)

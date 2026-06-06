@@ -138,7 +138,7 @@ void board_adc_init(void) {
 
   /*
    * Keep PWM-triggered PMT DMA running, but do not enable trigger-complete IRQs here.
-   * At a 5 us PWM period this interrupt can reach 200 kHz and starve USB/CDC handling.
+   * At a 20 us PWM period this interrupt would still run at 50 kHz and can starve USB/CDC handling.
    */
   // intc_m_enable_irq_with_priority(IRQn_ADC0, 7);
   // intc_m_enable_irq_with_priority(IRQn_ADC1, 7);
