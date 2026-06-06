@@ -43,15 +43,15 @@ vofa_frame *vofa_ptr = NULL;
 #define FSBB_SAMPLE_PERIOD_MS (1U)
 #define FSBB_VOFA_DECIMATION (20U)
 /*
- * Main loop samples ADC DMA at 1 kHz. The buck loop updates at 50 Hz:
- * low enough for bring-up stability, but fast enough that Vin feed-forward
- * can visibly compensate when the bench supply voltage is adjusted.
+ * ADC0 PMT completion interrupt is divided down in board_adc.c and calls the
+ * control update at about 50 Hz. Keep this decimation at 1 here; the ISR divider
+ * is the closed-loop time base.
  */
-#define FSBB_CONTROL_DECIMATION (20U)
+#define FSBB_CONTROL_DECIMATION (1U)
 #define FSBB_FILTER_ALPHA (0.05f)
-#define FSBB_KP (0.0030f)
-#define FSBB_KI (0.00010f)
-#define FSBB_INTEGRATOR_LIMIT (0.10f)
+#define FSBB_KP (0.0200f)
+#define FSBB_KI (0.00080f)
+#define FSBB_INTEGRATOR_LIMIT (0.40f)
 #define FSBB_H1_SLEW_PER_UPDATE (0.0050f)
 #define FSBB_H2_SLEW_PER_UPDATE (0.0002f)
 
@@ -65,6 +65,7 @@ typedef struct {
   float integrator;
   float error;
   float demand_ratio;
+  uint32_t update_count;
   uint32_t decimation;
   bool filter_ready;
 } fsbb_control_t;
@@ -115,6 +116,7 @@ static void fsbb_control_init(void) {
   fsbb.integrator = 0.0f;
   fsbb.error = 0.0f;
   fsbb.demand_ratio = 0.0f;
+  fsbb.update_count = 0;
   fsbb.decimation = 0;
   fsbb.filter_ready = false;
   fsbb_apply_bridge(fsbb.h1_buck_duty, FSBB_H2_PARK_DUTY);
@@ -171,6 +173,11 @@ static void fsbb_control_update(void) {
   fsbb.demand_ratio = target_h1;
   float next_h1 = slew_limit(target_h1, fsbb.h1_buck_duty, FSBB_H1_SLEW_PER_UPDATE);
   fsbb_apply_bridge(next_h1, FSBB_H2_PARK_DUTY);
+  fsbb.update_count++;
+}
+
+void adc0_conv_done_cb(void) {
+  fsbb_control_update();
 }
 
 void send_something(void) {
@@ -189,7 +196,7 @@ void send_something(void) {
     vofa_ptr->fdata[6] = FSBB_VOUT_TARGET_V;
     vofa_ptr->fdata[7] = fsbb.error;
     vofa_ptr->fdata[8] = fsbb.demand_ratio;
-    vofa_ptr->fdata[9] = (float)FSBB_CONTROL_DECIMATION;
+    vofa_ptr->fdata[9] = (float)fsbb.update_count;
     vofa_send_frame();
 }
 
@@ -220,7 +227,6 @@ int main(void) {
     //  board_pwm_set_duty_phase(i, H2, i*360); 
     //  board_delay_ms(10);
     //}
-    fsbb_control_update();
     vofa_decimation++;
     if (vofa_decimation >= FSBB_VOFA_DECIMATION) {
       vofa_decimation = 0;

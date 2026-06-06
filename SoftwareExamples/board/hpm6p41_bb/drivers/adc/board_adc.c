@@ -14,6 +14,12 @@
 #define CHANNEL_OUTPUT_I_SENSE 6
 #define CHANNEL_OUTPUT_V_SENSE 7
 
+/*
+ * ADC0 PMT completion follows the PWM trigger. At 200 kHz PWM, divide by 4000
+ * so the application callback runs at about 50 Hz.
+ */
+#define ADC0_CONV_DONE_DECIMATION (4000U)
+
 ATTR_PLACE_AT_NONCACHEABLE_WITH_ALIGNMENT(ADC_SOC_DMA_ADDR_ALIGNMENT)
 adc16_pmt_dma_data_t adc0_pmt_buff[ADC_SOC_PMT_MAX_DMA_BUFF_LEN_IN_4BYTES];
 
@@ -137,12 +143,12 @@ void board_adc_init(void) {
   adc16_init_pmt_dma(HPM_ADC1, core_local_mem_to_sys_address(HPM_CORE0, (uint32_t)adc1_pmt_buff));
 
   /*
-   * Keep PWM-triggered PMT DMA running, but do not enable trigger-complete IRQs here.
-   * At a 20 us PWM period this interrupt would still run at 50 kHz and can starve USB/CDC handling.
+   * ADC0 trigger-complete IRQ is used as the synchronized control time base.
+   * The ISR itself is lightweight and calls adc0_conv_done_cb() only after a large divider.
    */
-  // intc_m_enable_irq_with_priority(IRQn_ADC0, 7);
+  intc_m_enable_irq_with_priority(IRQn_ADC0, 7);
   // intc_m_enable_irq_with_priority(IRQn_ADC1, 7);
-  // adc16_enable_interrupts(HPM_ADC0, adc16_event_trig_complete);
+  adc16_enable_interrupts(HPM_ADC0, adc16_event_trig_complete);
   // adc16_enable_interrupts(HPM_ADC1, adc16_event_trig_complete);
 }
 
@@ -172,7 +178,7 @@ void isr_adc0(void) {
 
   if (ADC16_INT_STS_TRIG_CMPT_GET(status)) {
     prc++;
-    if (prc >= 4) {
+    if (prc >= ADC0_CONV_DONE_DECIMATION) {
       adc0_trig_conv_done = 1;
       adc0_conv_done_cb();
       //board_led2_toggle();
