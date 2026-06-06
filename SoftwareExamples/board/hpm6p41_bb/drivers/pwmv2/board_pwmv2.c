@@ -26,11 +26,12 @@
 /* FSBB power stage PWM:
  * - H1 / PWM1 channel 4&5 is the buck leg.
  * - H2 / PWM1 channel 6&7 is the boost leg.
- * - 20 us period gives 50 kHz switching frequency.
- * - Use one conservative dead-time value on both bridge legs during bring-up.
+ * - 5 us period gives 200 kHz switching frequency.
+ * - Dead-time is restored to the original per-leg values to reduce switching spikes.
  */
-#define FSBB_PWM_PERIOD_US (20U)
-#define FSBB_PWM_DEAD_TIME_TICKS (0xA0U)
+#define FSBB_PWM_PERIOD_US (5U)
+#define FSBB_BUCK_DEAD_TIME_TICKS (0x4FU)
+#define FSBB_BOOST_DEAD_TIME_TICKS (0x07U)
 #define FSBB_ENABLE_BOOST_LEG_OUTPUT (0)
 
 static volatile uint32_t reload = 0;
@@ -206,11 +207,11 @@ void board_pwmv2_start_out(void) {
 
   pwmv2_shadow_register_lock(HPM_PWM1);
 
-  // Set dead zone for both complementary bridge legs.
-  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_4, FSBB_PWM_DEAD_TIME_TICKS);
-  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_5, FSBB_PWM_DEAD_TIME_TICKS);
-  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_6, FSBB_PWM_DEAD_TIME_TICKS);
-  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_7, FSBB_PWM_DEAD_TIME_TICKS);
+  // Restore original per-leg dead zone values; H2 output is still disabled below.
+  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_4, FSBB_BUCK_DEAD_TIME_TICKS);
+  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_5, FSBB_BUCK_DEAD_TIME_TICKS);
+  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_6, FSBB_BOOST_DEAD_TIME_TICKS);
+  pwmv2_set_dead_area(HPM_PWM1, pwm_channel_7, FSBB_BOOST_DEAD_TIME_TICKS);
   pwmv2_add_delay_tick_after_dead_area(HPM_PWM1, 0);
 
   ////反转右侧桥臂输出极性

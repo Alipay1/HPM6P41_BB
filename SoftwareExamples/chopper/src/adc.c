@@ -41,13 +41,17 @@ vofa_frame *vofa_ptr = NULL;
 #define FSBB_H2_PARK_DUTY (0.0f)
 #define FSBB_VIN_MIN_ENABLE_V (2.0f)
 #define FSBB_SAMPLE_PERIOD_MS (1U)
-/* Main loop samples ADC DMA at 1 kHz; control updates every 100 samples, about 10 Hz. */
-#define FSBB_CONTROL_DECIMATION (100U)
-#define FSBB_FILTER_ALPHA (0.02f)
-#define FSBB_KP (0.0015f)
-#define FSBB_KI (0.000015f)
+/*
+ * Main loop samples ADC DMA at 1 kHz. The buck loop updates at 50 Hz:
+ * low enough for bring-up stability, but fast enough that Vin feed-forward
+ * can visibly compensate when the bench supply voltage is adjusted.
+ */
+#define FSBB_CONTROL_DECIMATION (20U)
+#define FSBB_FILTER_ALPHA (0.05f)
+#define FSBB_KP (0.0030f)
+#define FSBB_KI (0.00010f)
 #define FSBB_INTEGRATOR_LIMIT (0.10f)
-#define FSBB_H1_SLEW_PER_UPDATE (0.0005f)
+#define FSBB_H1_SLEW_PER_UPDATE (0.0050f)
 #define FSBB_H2_SLEW_PER_UPDATE (0.0002f)
 
 typedef struct {
@@ -158,7 +162,7 @@ static void fsbb_control_update(void) {
    * - H1 controls the buck leg with the low-side switch driven complementarily by PWM hardware.
    * - H2 is parked because the boost bridge has a hardware fault.
    * - Buck cannot raise Vout above Vin, so the command simply saturates at H1_MAX when Vin is low.
-   * The loop remains deliberately slow: 1 kHz ADC polling, 10 Hz duty update, and small slew steps.
+   * The loop remains deliberately gentle: 1 kHz ADC polling, 50 Hz duty update, and limited slew.
    */
   float demand_ratio = FSBB_VOUT_TARGET_V / fsbb.vin + FSBB_KP * fsbb.error + fsbb.integrator;
   float target_h1 = clampf(demand_ratio, FSBB_H1_MIN, FSBB_H1_MAX);
