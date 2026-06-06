@@ -232,6 +232,5 @@ int main(void) {
       vofa_decimation = 0;
       send_something();
     }
-    board_delay_ms(FSBB_SAMPLE_PERIOD_MS);
   }
 }
