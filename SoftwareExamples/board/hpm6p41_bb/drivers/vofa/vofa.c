@@ -32,14 +32,16 @@ vofa_frame *vofa_get_frame_ptr(void) {
 extern bool ep_tx_busy_flag;
 extern int usbd_ep_start_write(uint8_t busid, const uint8_t ep, const uint8_t *data, uint32_t data_len);
 
- void vofa_send_frame(void) {
+void vofa_send_frame(void) {
   vofa_frame *frame_ptr = vofa_frame_sel ? cdc_frame_1 : cdc_frame_0;
 
   vofa_frame_cnt++;
 
   if (vofa_frame_cnt == VOFA_BUF_CNT) {
-    while (ep_tx_busy_flag)
-      ;
+    if (ep_tx_busy_flag) {
+      vofa_frame_cnt = 0;
+      return;
+    }
     ep_tx_busy_flag = true;
     usbd_ep_start_write(0, CDC_IN_EP, (uint8_t *)frame_ptr, sizeof(cdc_frame_0));
     vofa_frame_sel = !vofa_frame_sel;    // 切换

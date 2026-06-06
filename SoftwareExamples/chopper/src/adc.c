@@ -41,6 +41,7 @@ vofa_frame *vofa_ptr = NULL;
 #define FSBB_H2_PARK_DUTY (0.0f)
 #define FSBB_VIN_MIN_ENABLE_V (2.0f)
 #define FSBB_SAMPLE_PERIOD_MS (1U)
+#define FSBB_VOFA_DECIMATION (20U)
 /*
  * Main loop samples ADC DMA at 1 kHz. The buck loop updates at 50 Hz:
  * low enough for bring-up stability, but fast enough that Vin feed-forward
@@ -167,16 +168,17 @@ static void fsbb_control_update(void) {
   float demand_ratio = FSBB_VOUT_TARGET_V / fsbb.vin + FSBB_KP * fsbb.error + fsbb.integrator;
   float target_h1 = clampf(demand_ratio, FSBB_H1_MIN, FSBB_H1_MAX);
 
-  fsbb.demand_ratio = demand_ratio;
+  fsbb.demand_ratio = target_h1;
   float next_h1 = slew_limit(target_h1, fsbb.h1_buck_duty, FSBB_H1_SLEW_PER_UPDATE);
   fsbb_apply_bridge(next_h1, FSBB_H2_PARK_DUTY);
 }
 
-void send_something(void){
-    /* ADC PMT DMA is updated by the PWM trigger chain; poll the latest buffer at a low rate. */
-    fsbb_control_update();
+void send_something(void) {
+    /* Keep telemetry optional; control must continue even if USB/VOFA is not connected. */
+    if (!dtr_enable) {
+      return;
+    }
 
-    /* Process data */
     vofa_ptr           = vofa_get_frame_ptr();
     vofa_ptr->fdata[0] = fsbb.vin;
     vofa_ptr->fdata[1] = fsbb.vout;
@@ -187,6 +189,7 @@ void send_something(void){
     vofa_ptr->fdata[6] = FSBB_VOUT_TARGET_V;
     vofa_ptr->fdata[7] = fsbb.error;
     vofa_ptr->fdata[8] = fsbb.demand_ratio;
+    vofa_ptr->fdata[9] = (float)FSBB_CONTROL_DECIMATION;
     vofa_send_frame();
 }
 
@@ -211,12 +214,18 @@ int main(void) {
   fsbb_control_init();
 
   board_adc_init();
+  uint32_t vofa_decimation = 0;
   while (1) {
     //for (double i = 0; i<1.0; i+=0.01) {
     //  board_pwm_set_duty_phase(i, H2, i*360); 
     //  board_delay_ms(10);
     //}
-    send_something();
+    fsbb_control_update();
+    vofa_decimation++;
+    if (vofa_decimation >= FSBB_VOFA_DECIMATION) {
+      vofa_decimation = 0;
+      send_something();
+    }
     board_delay_ms(FSBB_SAMPLE_PERIOD_MS);
   }
 }
